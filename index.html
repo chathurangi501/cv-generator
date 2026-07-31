@@ -363,7 +363,7 @@
         </div>
     </div>
 
-    <!-- JavaScript Complete & Fixed for Phone/PC PDF Rendering -->
+    <!-- JavaScript Fixed for Phone Mobile View -->
     <script>
         const fullNameInput = document.getElementById('fullName');
         const jobTitleInput = document.getElementById('jobTitle');
@@ -743,7 +743,7 @@
             }
         });
 
-        // PDF Download Validation & Execution Fix (Scale set to 1 for mobile safety)
+        // PDF Download Handler (Updated html2canvas config for mobile rendering)
         downloadBtn.addEventListener('click', () => {
             const nameVal = fullNameInput.value.trim();
             const emailVal = emailInput.value.trim();
@@ -762,7 +762,13 @@
                 margin:       0.2,
                 filename:     (nameVal ? nameVal.replace(/\s+/g, '_') : 'My_CV') + '_CV.pdf',
                 image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 1, useCORS: true, logging: false, letterRendering: true },
+                html2canvas:  { 
+                    scale: 1, 
+                    useCORS: true, 
+                    logging: false, 
+                    letterRendering: true,
+                    windowWidth: document.documentElement.offsetWidth
+                },
                 jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
             };
 

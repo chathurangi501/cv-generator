@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sri Lankan CV & Internship Generator</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- html2pdf Library for PDF Download -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body class="bg-slate-100 min-h-screen p-4 sm:p-6">
+
+    <div class="max-w-7xl mx-auto">
+        <header class="text-center mb-8">
+            <h1 class="text-2xl sm:text-3xl font-bold text-slate-800">Sri Lankan CV & Internship Generator</h1>
+            <p class="text-slate-600 mt-2 text-sm sm:text-base">Unique Templates Layout</p>
+        </header>
+
+        <!-- Main Grid Layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            
+            <!-- Left Side: Input Form -->
+            <div class="bg-white p-4 sm:p-6 rounded-xl shadow-md space-y-6">
+                
+                <!-- Template Selector (3 Distinct Layouts) -->
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-2">Select CV Template</label>
+                    <select id="templateSelector" class="w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm">
+                        <option value="greySidebar" selected>1. Grey Sidebar Profile Layout</option>
+                        <option value="topBanner">2. Modern Top Banner Layout (Very Soft Color)</option>
+                        <option value="ats">3. ATS-Friendly Professional</option>
+                    </select>
+                </div>
+
+                <!-- 1. Personal Information -->
+                <div>
+                    <h2 class="text-lg sm:text-xl font-semibold text-slate-700 mb-4">1. Personal Information</h2>
+                    
+                    <div class="space-y-4">
+                        <div id="imageUploadWrapper">
+                            <label class="block text-sm font-medium text-slate-600">Profile Picture</label>
+                            <input type="file" id="profilePicInput" accept="image/*" 
+                                class="mt-1 w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                        </div>
+
+                        <!-- FULL NAME -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-600">Full Name *</label>
+                            <input type="text" id="fullName" value=""
+                                class="mt-1 w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm">
+                        </div>
+                        
+                        <!-- JOB TITLE -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-600">Job Title / Designation *</label>
+                            <input type="text" id="jobTitle" value=""
+                                class="mt-1 w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-slate-600">Job Title Short Description / Objective</label>
+                            <textarea id="jobTitleDesc" rows="3"
+                                class="mt-1 w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"></textarea>
+                        </div>
+
+                        <!-- BIRTHDAY -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-600">Date of Birth</label>
+                            <input type="date" id="dobInput" 
+                                class="mt-1 w-full p-2 border border-slate-300 rounded-lg bg-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        </div>
+
+                        <!-- ADDRESS -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-600">Address / City</label>
+                            <input type="text" id="addressInput" value="" 
+                                class="mt-1 w-full p-2 border border-slate-300 rounded-lg bg-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        </div>
+
+                        <!-- NATIONALITY -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-600">Nationality</label>
+                            <input type="text" id="nationalityInput" value="Sri Lankan" 
+                                class="mt-1 w-full p-2 border border-slate-300 rounded-lg bg-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        </div>
+
+                        <!-- GENDER -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-600">Gender</label>
+                            <select id="genderInput" class="mt-1 w-full p-2 border border-slate-300 rounded-lg bg-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                                <option value="">Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <!-- LANGUAGES -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-600">Languages (e.g. Sinhala, English)</label>
+                            <input type="text" id="languagesInput" value="Sinhala, English" 
+                                class="mt-1 w-full p-2 border border-slate-300 rounded-lg bg-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        </div>
+
+                        <!-- Contact Details -->
+                        <div class="pt-2 border-t space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-600">Email *</label>
+                                <input type="email" id="email" maxlength="50" value=""
+                                    class="mt-1 w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-slate-600">Phone Number *</label>
+                                <input type="text" id="phone" value="+94 " maxlength="13" 
+                                    class="mt-1 w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm">
+                            </div>
+                        </div>
+
+                        <!-- Social Links Box -->
+                        <div class="pt-2 border-t space-y-3 bg-slate-50 p-3 rounded-lg border border-slate-200">
+                            <div>
+                                <label class="block text-xs font-medium text-slate-600">LinkedIn Profile URL</label>
+                                <input type="text" id="linkedinInput" value="" 
+                                    class="mt-1 w-full p-2 border border-slate-300 rounded-lg bg-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-slate-600">GitHub / Portfolio URL</label>
+                                <input type="text" id="githubInput" value="" 
+                                    class="mt-1 w-full p-2 border border-slate-300 rounded-lg bg-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- 2. Education Section Input -->
+                <div class="border-t pt-4">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-lg sm:text-xl font-semibold text-slate-700">2. Education Qualifications</h2>
+                        <button type="button" id="addEduBtn" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold py-1.5 px-3 rounded-lg shadow transition">
+                            + Add Education
+                        </button>
+                    </div>
+                    
+                    <div id="educationContainer" class="space-y-4">
+                        <div class="edu-item bg-slate-50 p-4 rounded-lg border border-slate-200 relative space-y-3">
+                            <div>
+                                <label class="block text-xs font-medium text-slate-600">Degree / Diploma / Course</label>
+                                <input type="text" class="edu-degree mt-1 w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm" value="">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-slate-600">Institute / School</label>
+                                <input type="text" class="edu-institute mt-1 w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm" value="">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-slate-600">Details / Year / Results</label>
+                                <input type="text" class="edu-desc mt-1 w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm" value="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Skills & Categorized Experience Section Input -->
+                <div class="border-t pt-4">
+                    <h2 class="text-lg sm:text-xl font-semibold text-slate-700 mb-4">3. Skills & Experience Sections</h2>
+                    <p class="text-xs text-slate-500 mb-3">Leave empty any section you don't need; it will automatically hide from the preview!</p>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-600">Technical / Professional Skills</label>
+                            <textarea id="techSkills" rows="2" placeholder="e.g. JavaScript, PHP, MySQL, Git, UI/UX"
+                                class="mt-1 w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"></textarea>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-slate-600">Projects / Development Experience (Optional)</label>
+                            <textarea id="projectsInput" rows="3" placeholder="Leave empty if you don't have projects yet..."
+                                class="mt-1 w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"></textarea>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-slate-600">Professional Training / Internships (Optional)</label>
+                            <textarea id="trainingInput" rows="2" placeholder="Details about training programs or internships..."
+                                class="mt-1 w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"></textarea>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-slate-600">Extracurricular Activities & Leadership</label>
+                            <textarea id="extraInput" rows="2" placeholder="e.g. Batch Treasurer, Club Memberships, Volunteering..."
+                                class="mt-1 w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. References Input -->
+                <div class="border-t pt-4">
+                    <h2 class="text-lg sm:text-xl font-semibold text-slate-700 mb-4">4. References</h2>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-600">Reference Name & Title</label>
+                            <input type="text" id="refName" value=""
+                                class="mt-1 w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-600">Institute / Company</label>
+                            <input type="text" id="refInstitute" value=""
+                                class="mt-1 w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-600">Contact Details (Email / Phone)</label>
+                            <input type="text" id="refContact" value=""
+                                class="mt-1 w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right Side: Live CV Preview & Download -->
+            <div class="bg-white p-4 sm:p-8 rounded-xl shadow-md border border-slate-200 flex flex-col justify-between">
+                <div>
+                    <div class="flex flex-col sm:flex-row justify-between items-center mb-4 pb-2 border-b gap-3">
+                        <h2 class="text-lg sm:text-xl font-semibold text-slate-700">Live CV Preview</h2>
+                        <button id="downloadBtn" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold py-2 px-4 rounded-lg shadow transition">
+                            Download PDF
+                        </button>
+                    </div>
+                    
+                    <!-- Validation Error Box -->
+                    <div id="errorMsgBox" class="hidden mb-4 p-3 bg-red-50 border border-red-200 text-red-600 text-xs sm:text-sm rounded-lg">
+                        ⚠️ Please fill in your **Full Name**, **Email**, and **Phone Number** before downloading the PDF!
+                    </div>
+
+                    <!-- CV Container -->
+                    <div id="cvPreview" class="bg-white border border-slate-300 rounded-lg shadow-sm overflow-hidden flex flex-col md:flex-row w-full">
+                        
+                        <!-- Left Sidebar Preview Area -->
+                        <div id="previewHeader" class="w-full md:w-1/3 bg-slate-300 text-slate-900 p-6 flex flex-col items-center text-center space-y-4">
+                            <div id="imageContainer" class="w-28 h-28 rounded-full border-4 border-white overflow-hidden flex-shrink-0 flex items-center justify-center text-slate-600 text-xs shadow-md">
+                                <span id="imgPlaceholder">No Photo</span>
+                                <img id="previewImg" class="w-full h-full object-cover hidden" alt="Profile Picture">
+                            </div>
+
+                            <!-- Sidebar Personal Information -->
+                            <div id="sidebarPersonalInfo" class="w-full text-left mt-2 pt-1 space-y-3">
+                                <h4 class="text-[11px] font-bold uppercase tracking-wider text-slate-900 border-b border-slate-400 pb-1 mb-2">Personal Information</h4>
+                                
+                                <div class="text-[11px] text-slate-900 break-all">
+                                    <strong class="block text-slate-950 text-[10px] uppercase font-bold">Name:</strong>
+                                    <span id="sbPreviewName">-</span>
+                                </div>
+                                <div id="sbDobBlock" class="hidden text-[11px] text-slate-900">
+                                    <strong class="block text-slate-950 text-[10px] uppercase font-bold">Birthdate:</strong>
+                                    <span id="sbPreviewDob">-</span>
+                                </div>
+                                <div id="sbAddressBlock" class="hidden text-[11px] text-slate-900 break-all">
+                                    <strong class="block text-slate-950 text-[10px] uppercase font-bold">Address:</strong>
+                                    <span id="sbPreviewAddress">-</span>
+                                </div>
+                                <div id="sbNationalityBlock" class="hidden text-[11px] text-slate-900">
+                                    <strong class="block text-slate-950 text-[10px] uppercase font-bold">Nationality:</strong>
+                                    <span id="sbPreviewNationality">Sri Lankan</span>
+                                </div>
+                                <div id="sbGenderBlock" class="hidden text-[11px] text-slate-900">
+                                    <strong class="block text-slate-950 text-[10px] uppercase font-bold">Gender:</strong>
+                                    <span id="sbPreviewGender">-</span>
+                                </div>
+                                <div id="sbLanguagesBlock" class="hidden text-[11px] text-slate-900">
+                                    <strong class="block text-slate-950 text-[10px] uppercase font-bold">Languages:</strong>
+                                    <span id="sbPreviewLanguages">-</span>
+                                </div>
+
+                                <div class="text-[11px] text-slate-900 pt-2 border-t border-slate-400 space-y-1.5 break-all">
+                                    <strong class="block text-slate-950 text-[10px] uppercase font-bold">Contact:</strong>
+                                    <p>📱 <span id="previewPhoneSb">+94 </span></p>
+                                    <p>✉️ <span id="previewEmailSb"></span></p>
+                                    
+                                    <!-- Boxed Links Container for LinkedIn and GitHub -->
+                                    <div id="socialLinksBox" class="hidden mt-2 p-2 bg-slate-200/90 rounded border border-slate-400 space-y-1">
+                                        <div id="sbLinkedinBlock" class="hidden break-all text-[10px]">🔗 <span id="sbPreviewLinkedin"></span></div>
+                                        <div id="sbGithubBlock" class="hidden break-all text-[10px]">💻 <span id="sbPreviewGithub"></span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Main Content Preview Area -->
+                        <div id="previewContact" class="w-full md:w-2/3 p-6 space-y-4 font-sans text-slate-800 bg-white">
+                            
+                            <!-- Name, Job Title & Description Section -->
+                            <div id="nameTitleBox" class="border-b pb-3 text-center">
+                                <h3 id="previewName" class="text-xl sm:text-2xl font-bold text-slate-900 tracking-wide break-all"></h3>
+                                <p id="previewTitle" class="text-blue-600 text-xs sm:text-sm font-semibold mt-0.5 break-all"></p>
+                                <p id="previewTitleDesc" class="text-xs text-slate-600 mt-1.5 italic whitespace-pre-line break-all hidden"></p>
+                            </div>
+
+                            <!-- Standard Contact Info Box (Used for ATS/TopBanner Template) -->
+                            <div id="standardContactBox" class="hidden text-xs text-slate-600 text-center space-y-1 pb-3 border-b">
+                                <p><span id="stdPhone">+94 </span> | <span id="stdEmail"></span></p>
+                                <p id="stdAddressBlock" class="hidden">📍 <span id="stdAddress"></span></p>
+                                <div id="stdSocialBlock" class="hidden flex justify-center gap-3 pt-1">
+                                    <span id="stdLinkedin" class="hidden"></span>
+                                    <span id="stdGithub" class="hidden"></span>
+                                </div>
+                            </div>
+
+                            <!-- Education Preview Box -->
+                            <div id="eduMainBlock" class="border-t pt-2 hidden">
+                                <h4 id="eduHeading" class="text-xs font-bold uppercase tracking-wider text-blue-600 mb-2">Education Qualifications</h4>
+                                <div id="previewEducationContainer" class="space-y-2"></div>
+                            </div>
+
+                            <!-- Technical Skills Preview Box -->
+                            <div id="skillsPreviewBlock" class="border-t pt-2 hidden">
+                                <h4 id="skillsHeading" class="text-xs font-bold uppercase tracking-wider text-blue-600 mb-1">Technical Skills</h4>
+                                <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-md">
+                                    <p id="previewSkills" class="text-xs text-slate-700 break-all"></p>
+                                </div>
+                            </div>
+
+                            <!-- Projects Preview Box -->
+                            <div id="projectsPreviewBlock" class="border-t pt-2 hidden">
+                                <h4 class="text-xs font-bold uppercase tracking-wider text-blue-600 mb-1">Projects & Development Experience</h4>
+                                <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-md">
+                                    <p id="previewProjects" class="text-xs text-slate-700 whitespace-pre-line break-all"></p>
+                                </div>
+                            </div>
+
+                            <!-- Professional Training Preview Box -->
+                            <div id="trainingPreviewBlock" class="border-t pt-2 hidden">
+                                <h4 class="text-xs font-bold uppercase tracking-wider text-blue-600 mb-1">Professional Training & Internships</h4>
+                                <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-md">
+                                    <p id="previewTraining" class="text-xs text-slate-700 whitespace-pre-line break-all"></p>
+                                </div>
+                            </div>
+
+                            <!-- Extracurricular Preview Box -->
+                            <div id="extraPreviewBlock" class="border-t pt-2 hidden">
+                                <h4 class="text-xs font-bold uppercase tracking-wider text-blue-600 mb-1">Extracurricular Activities & Leadership</h4>
+                                <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-md">
+                                    <p id="previewExtra" class="text-xs text-slate-700 whitespace-pre-line break-all"></p>
+                                </div>
+                            </div>
+
+                            <!-- References Preview Box -->
+                            <div id="refMainBlock" class="border-t pt-2 hidden">
+                                <h4 id="refHeading" class="text-xs font-bold uppercase tracking-wider text-blue-600 mb-1">References</h4>
+                                <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-md space-y-0.5 break-all">
+                                    <h5 id="previewRefName" class="font-bold text-slate-800 text-xs sm:text-sm"></h5>
+                                    <p id="previewRefInst" class="text-xs font-medium text-slate-600"></p>
+                                    <p id="previewRefContact" class="text-xs text-slate-500"></p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        const fullNameInput = document.getElementById('fullName');
+        const jobTitleInput = document.getElementById('jobTitle');
+        const jobTitleDescInput = document.getElementById('jobTitleDesc');
+        const emailInput = document.getElementById('email');
+        const phoneInput = document.getElementById('phone');
+        const profilePicInput = document.getElementById('profilePicInput');
+        const templateSelector = document.getElementById('templateSelector');
+        const errorMsgBox = document.getElementById('errorMsgBox');
+
+        const addressInput = document.getElementById('addressInput');
+        const sbAddressBlock = document.getElementById('sbAddressBlock');
+        const sbPreviewAddress = document.getElementById('sbPreviewAddress');
+
+        const nationalityInput = document.getElementById('nationalityInput');
+        const sbNationalityBlock = document.getElementById('sbNationalityBlock');
+        const sbPreviewNationality = document.getElementById('sbPreviewNationality');
+
+        const genderInput = document.getElementById('genderInput');
+        const sbGenderBlock = document.getElementById('sbGenderBlock');
+        const sbPreviewGender = document.getElementById('sbPreviewGender');
+
+        const dobInput = document.getElementById('dobInput');
+        const sbDobBlock = document.getElementById('sbDobBlock');
+        const sbPreviewDob = document.getElementById('sbPreviewDob');
+
+        const languagesInput = document.getElementById('languagesInput');
+        const sbLanguagesBlock = document.getElementById('sbLanguagesBlock');
+        const sbPreviewLanguages = document.getElementById('sbPreviewLanguages');
+
+        const linkedinInput = document.getElementById('linkedinInput');
+        const githubInput = document.getElementById('githubInput');
+        const sbLinkedinBlock = document.getElementById('sbLinkedinBlock');
+        const sbGithubBlock = document.getElementById('sbGithubBlock');
+        const sbPreviewLinkedin = document.getElementById('sbPreviewLinkedin');
+        const sbPreviewGithub = document.getElementById('sbPreviewGithub');
+        const socialLinksBox = document.getElementById('socialLinksBox');
+        const sbPreviewName = document.getElementById('sbPreviewName');
+
+        // Standard Contact elements for non-sidebar templates
+        const standardContactBox = document.getElementById('standardContactBox');
+        const stdPhone = document.getElementById('stdPhone');
+        const stdEmail = document.getElementById('stdEmail');
+        const stdAddressBlock = document.getElementById('stdAddressBlock');
+        const stdAddress = document.getElementById('stdAddress');
+        const stdSocialBlock = document.getElementById('stdSocialBlock');
+        const stdLinkedin = document.getElementById('stdLinkedin');
+        const stdGithub = document.getElementById('stdGithub');
+
+        const addEduBtn = document.getElementById('addEduBtn');
+        const educationContainer = document.getElementById('educationContainer');
+        const previewEducationContainer = document.getElementById('previewEducationContainer');
+        const eduMainBlock = document.getElementById('eduMainBlock');
+
+        const techSkillsInput = document.getElementById('techSkills');
+        const projectsInput = document.getElementById('projectsInput');
+        const trainingInput = document.getElementById('trainingInput');
+        const extraInput = document.getElementById('extraInput');
+
+        const previewSkills = document.getElementById('previewSkills');
+        const previewProjects = document.getElementById('previewProjects');
+        const previewTraining = document.getElementById('previewTraining');
+        const previewExtra = document.getElementById('previewExtra');
+
+        const skillsPreviewBlock = document.getElementById('skillsPreviewBlock');
+        const projectsPreviewBlock = document.getElementById('projectsPreviewBlock');
+        const trainingPreviewBlock = document.getElementById('trainingPreviewBlock');
+        const extraPreviewBlock = document.getElementById('extraPreviewBlock');
+
+        const refNameInput = document.getElementById('refName');
+        const refInstituteInput = document.getElementById('refInstitute');
+        const refContactInput = document.getElementById('refContact');
+        const refMainBlock = document.getElementById('refMainBlock');
+
+        const previewName = document.getElementById('previewName');
+        const previewTitle = document.getElementById('previewTitle');
+        const previewTitleDesc = document.getElementById('previewTitleDesc');
+        const previewPhoneSb = document.getElementById('previewPhoneSb');
+        const previewEmailSb = document.getElementById('previewEmailSb');
+        const previewImg = document.getElementById('previewImg');
+        const imgPlaceholder = document.getElementById('imgPlaceholder');
+        const cvPreview = document.getElementById('cvPreview');
+        const previewHeader = document.getElementById('previewHeader');
+        const previewContact = document.getElementById('previewContact');
+        const imageContainer = document.getElementById('imageContainer');
+        const imageUploadWrapper = document.getElementById('imageUploadWrapper');
+        const sidebarPersonalInfo = document.getElementById('sidebarPersonalInfo');
+        const nameTitleBox = document.getElementById('nameTitleBox');
+
+        const previewRefName = document.getElementById('previewRefName');
+        const previewRefInst = document.getElementById('previewRefInst');
+        const previewRefContact = document.getElementById('previewRefContact');
+        const downloadBtn = document.getElementById('downloadBtn');
+
+        const eduHeading = document.getElementById('eduHeading');
+        const skillsHeading = document.getElementById('skillsHeading');
+        const refHeading = document.getElementById('refHeading');
+
+        // Input Listeners
+        fullNameInput.addEventListener('input', (e) => { 
+            previewName.textContent = e.target.value; 
+            sbPreviewName.textContent = e.target.value || '-';
+        });
+        jobTitleInput.addEventListener('input', (e) => { previewTitle.textContent = e.target.value; });
+        
+        jobTitleDescInput.addEventListener('input', (e) => {
+            const val = e.target.value.trim();
+            if(val) {
+                previewTitleDesc.textContent = val;
+                previewTitleDesc.classList.remove('hidden');
+            } else {
+                previewTitleDesc.classList.add('hidden');
+            }
+        });
+
+        dobInput.addEventListener('change', (e) => { 
+            const val = e.target.value;
+            sbPreviewDob.textContent = val || '-';
+            if(val) sbDobBlock.classList.remove('hidden');
+            else sbDobBlock.classList.add('hidden');
+        });
+
+        addressInput.addEventListener('input', (e) => { 
+            const val = e.target.value.trim();
+            sbPreviewAddress.textContent = val || '-';
+            stdAddress.textContent = val || '';
+            if(val) {
+                sbAddressBlock.classList.remove('hidden');
+                stdAddressBlock.classList.remove('hidden');
+            } else {
+                sbAddressBlock.classList.add('hidden');
+                stdAddressBlock.classList.add('hidden');
+            }
+        });
+
+        nationalityInput.addEventListener('input', (e) => { 
+            const val = e.target.value.trim();
+            sbPreviewNationality.textContent = val || '-';
+            if(val) sbNationalityBlock.classList.remove('hidden');
+            else sbNationalityBlock.classList.add('hidden');
+        });
+
+        genderInput.addEventListener('change', (e) => { 
+            const val = e.target.value;
+            sbPreviewGender.textContent = val || '-';
+            if(val) sbGenderBlock.classList.remove('hidden');
+            else sbGenderBlock.classList.add('hidden');
+        });
+
+        languagesInput.addEventListener('input', (e) => { 
+            const val = e.target.value.trim();
+            sbPreviewLanguages.textContent = val || '-';
+            if(val) sbLanguagesBlock.classList.remove('hidden');
+            else sbLanguagesBlock.classList.add('hidden');
+        });
+
+        emailInput.addEventListener('input', (e) => { 
+            previewEmailSb.textContent = e.target.value; 
+            stdEmail.textContent = e.target.value;
+        });
+        
+        phoneInput.addEventListener('input', (e) => {
+            if (!e.target.value.startsWith("+94 ")) {
+                e.target.value = "+94 ";
+            }
+            let numbers = e.target.value.slice(4).replace(/\D/g, '').slice(0, 9);
+            e.target.value = "+94 " + numbers;
+            previewPhoneSb.textContent = e.target.value;
+            stdPhone.textContent = e.target.value;
+        });
+
+        function updateSocialBox() {
+            const linVal = linkedinInput.value.trim();
+            const gitVal = githubInput.value.trim();
+
+            if (linVal) {
+                sbPreviewLinkedin.textContent = linVal;
+                sbLinkedinBlock.classList.remove('hidden');
+                stdLinkedin.textContent = "LinkedIn: " + linVal;
+                stdLinkedin.classList.remove('hidden');
+            } else {
+                sbLinkedinBlock.classList.add('hidden');
+                stdLinkedin.classList.add('hidden');
+            }
+
+            if (gitVal) {
+                sbPreviewGithub.textContent = gitVal;
+                sbGithubBlock.classList.remove('hidden');
+                stdGithub.textContent = "GitHub: " + gitVal;
+                stdGithub.classList.remove('hidden');
+            } else {
+                sbGithubBlock.classList.add('hidden');
+                stdGithub.classList.add('hidden');
+            }
+
+            if (linVal || gitVal) {
+                socialLinksBox.classList.remove('hidden');
+                stdSocialBlock.classList.remove('hidden');
+            } else {
+                socialLinksBox.classList.add('hidden');
+                stdSocialBlock.classList.add('hidden');
+            }
+        }
+
+        linkedinInput.addEventListener('input', updateSocialBox);
+        githubInput.addEventListener('input', updateSocialBox);
+
+        function updateEducationPreview() {
+            previewEducationContainer.innerHTML = '';
+            const eduItems = educationContainer.querySelectorAll('.edu-item');
+            let hasValidEdu = false;
+            
+            eduItems.forEach(item => {
+                const degree = item.querySelector('.edu-degree').value.trim();
+                const institute = item.querySelector('.edu-institute').value.trim();
+                const desc = item.querySelector('.edu-desc').value.trim();
+
+                if(degree || institute || desc) {
+                    hasValidEdu = true;
+                    const eduDiv = document.createElement('div');
+                    eduDiv.className = "p-2.5 bg-slate-50 border border-slate-200 rounded-md space-y-0.5 break-all";
+                    eduDiv.innerHTML = `
+                        <h5 class="font-bold text-slate-800 text-xs sm:text-sm">${degree}</h5>
+                        <p class="text-xs font-medium text-slate-600">${institute}</p>
+                        <p class="text-xs text-slate-500">${desc}</p>
+                    `;
+                    previewEducationContainer.appendChild(eduDiv);
+                }
+            });
+
+            if(hasValidEdu) {
+                eduMainBlock.classList.remove('hidden');
+            } else {
+                eduMainBlock.classList.add('hidden');
+            }
+        }
+
+        addEduBtn.addEventListener('click', () => {
+            const div = document.createElement('div');
+            div.className = "edu-item bg-slate-50 p-4 rounded-lg border border-slate-200 relative space-y-3";
+            div.innerHTML = `
+                <div class="flex justify-between items-center">
+                    <span class="text-xs font-semibold text-slate-500">Additional Qualification</span>
+                    <button type="button" class="removeEdu text-red-500 hover:text-red-700 text-xs font-bold">Remove</button>
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-slate-600">Degree / Diploma / Course</label>
+                    <input type="text" class="edu-degree mt-1 w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm" value="">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-slate-600">Institute / School</label>
+                    <input type="text" class="edu-institute mt-1 w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm" value="">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-slate-600">Details / Year / Results</label>
+                    <input type="text" class="edu-desc mt-1 w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm" value="">
+                </div>
+            `;
+            educationContainer.appendChild(div);
+            attachEduListeners();
+            updateEducationPreview();
+        });
+
+        function attachEduListeners() {
+            educationContainer.querySelectorAll('.edu-item').forEach(item => {
+                item.querySelectorAll('input').forEach(input => {
+                    input.removeEventListener('input', updateEducationPreview);
+                    input.addEventListener('input', updateEducationPreview);
+                });
+                const removeBtn = item.querySelector('.removeEdu');
+                if(removeBtn) {
+                    removeBtn.onclick = () => {
+                        item.remove();
+                        updateEducationPreview();
+                    };
+                }
+            });
+        }
+
+        attachEduListeners();
+        updateEducationPreview();
+
+        techSkillsInput.addEventListener('input', (e) => {
+            const val = e.target.value.trim();
+            previewSkills.textContent = val;
+            if(val) skillsPreviewBlock.classList.remove('hidden');
+            else skillsPreviewBlock.classList.add('hidden');
+        });
+
+        projectsInput.addEventListener('input', (e) => {
+            const val = e.target.value.trim();
+            previewProjects.textContent = val;
+            if(val) projectsPreviewBlock.classList.remove('hidden');
+            else projectsPreviewBlock.classList.add('hidden');
+        });
+
+        trainingInput.addEventListener('input', (e) => {
+            const val = e.target.value.trim();
+            previewTraining.textContent = val;
+            if(val) trainingPreviewBlock.classList.remove('hidden');
+            else trainingPreviewBlock.classList.add('hidden');
+        });
+
+        extraInput.addEventListener('input', (e) => {
+            const val = e.target.value.trim();
+            previewExtra.textContent = val;
+            if(val) extraPreviewBlock.classList.remove('hidden');
+            else extraPreviewBlock.classList.add('hidden');
+        });
+
+        function updateReferences() {
+            const name = refNameInput.value.trim();
+            const inst = refInstituteInput.value.trim();
+            const cont = refContactInput.value.trim();
+
+            previewRefName.textContent = name;
+            previewRefInst.textContent = inst;
+            previewRefContact.textContent = cont;
+
+            if (name || inst || cont) {
+                refMainBlock.classList.remove('hidden');
+            } else {
+                refMainBlock.classList.add('hidden');
+            }
+        }
+
+        refNameInput.addEventListener('input', updateReferences);
+        refInstituteInput.addEventListener('input', updateReferences);
+        refContactInput.addEventListener('input', updateReferences);
+        updateReferences();
+
+        profilePicInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    previewImg.src = event.target.result;
+                    previewImg.classList.remove('hidden');
+                    imgPlaceholder.classList.add('hidden');
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        window.addEventListener('DOMContentLoaded', () => { 
+            applyGreySidebarLayout(); 
+            sbPreviewNationality.textContent = "Sri Lankan";
+            sbNationalityBlock.classList.remove('hidden');
+            sbPreviewLanguages.textContent = "Sinhala, English";
+            sbLanguagesBlock.classList.remove('hidden');
+        });
+
+        function applyGreySidebarLayout() {
+            cvPreview.className = "bg-white border border-slate-300 rounded-lg shadow-sm overflow-hidden flex flex-col md:flex-row w-full";
+            // Changed to bg-slate-200 for a much softer, lighter side panel look
+            previewHeader.className = "w-full md:w-1/3 bg-slate-200 text-slate-900 p-6 flex flex-col items-center text-center space-y-4";
+            imageContainer.className = "w-28 h-28 rounded-full border-4 border-white overflow-hidden flex-shrink-0 flex items-center justify-center text-slate-600 text-xs shadow-md";
+            previewContact.className = "w-full md:w-2/3 p-6 space-y-4 font-sans text-slate-800 bg-white";
+            sidebarPersonalInfo.classList.add('hidden');
+            previewHeader.style.display = 'flex';
+            nameTitleBox.classList.remove('hidden');
+            
+            sidebarPersonalInfo.classList.remove('hidden');
+            standardContactBox.classList.add('hidden');
+            nameTitleBox.classList.add('hidden');
+        }
+
+        templateSelector.addEventListener('change', (e) => {
+            const val = e.target.value;
+            imageContainer.classList.remove('hidden');
+            imageUploadWrapper.style.display = 'block';
+
+            if (val === 'greySidebar') { 
+                applyGreySidebarLayout(); 
+            } 
+            else if (val === 'topBanner') {
+                cvPreview.className = "bg-white border border-slate-300 rounded-lg shadow-sm overflow-hidden flex flex-col w-full";
+                // Changed to bg-slate-300 for a very soft, light top banner look
+                previewHeader.className = "w-full bg-slate-300 text-slate-900 p-6 flex flex-row items-center space-x-6 text-left";
+                imageContainer.className = "w-20 h-20 rounded-full border-2 border-white overflow-hidden flex-shrink-0 flex items-center justify-center text-slate-700 text-xs shadow-md";
+                previewContact.className = "w-full p-6 space-y-4 font-sans text-slate-800 bg-white";
+                sidebarPersonalInfo.classList.add('hidden');
+                standardContactBox.classList.remove('hidden');
+                nameTitleBox.classList.remove('hidden');
+            } 
+            else if (val === 'ats') {
+                imageContainer.classList.add('hidden');
+                imageUploadWrapper.style.display = 'none';
+                sidebarPersonalInfo.classList.add('hidden');
+                standardContactBox.classList.remove('hidden');
+                nameTitleBox.classList.remove('hidden');
+                cvPreview.className = "p-6 bg-white border border-slate-300 rounded-none shadow-none space-y-3 font-sans text-slate-900 flex flex-col w-full";
+                previewHeader.className = "text-center pb-4 border-b-2 border-slate-800 p-0 bg-transparent text-slate-900 w-full flex flex-col items-center";
+                previewContact.className = "w-full p-0 space-y-4 font-sans text-slate-900 bg-white";
+            }
+        });
+
+        // Form Validation & PDF Download Logic
+        downloadBtn.addEventListener('click', () => {
+            const nameVal = fullNameInput.value.trim();
+            const emailVal = emailInput.value.trim();
+            const phoneVal = phoneInput.value.trim();
+
+            if (!nameVal || !emailVal || phoneVal === "+94 " || !phoneVal) {
+                errorMsgBox.classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                return;
+            } else {
+                errorMsgBox.classList.add('hidden');
+            }
+
+            const element = document.getElementById('cvPreview');
+            const options = {
+                margin:       [5, 5, 5, 5],
+                filename:     (nameVal ? nameVal.replace(/\s+/g, '_') : 'My') + '_Professional_CV.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true, letterRendering: true },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait', putOnlyUsedFonts: true }
+            };
+            html2pdf().from(element).set(options).save();
+        });
+    </script>
+
+</body>
+</html>

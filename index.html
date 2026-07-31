@@ -238,8 +238,8 @@
                     <div id="cvPreview" class="bg-white border border-slate-300 rounded-lg shadow-sm overflow-hidden flex flex-col md:flex-row w-full">
                         
                         <!-- Left Sidebar Preview Area -->
-                        <div id="previewHeader" class="w-full md:w-1/3 bg-slate-300 text-slate-900 p-6 flex flex-col items-center text-center space-y-4">
-                            <div id="imageContainer" class="w-28 h-28 rounded-full border-4 border-white overflow-hidden flex-shrink-0 flex items-center justify-center text-slate-600 text-xs shadow-md">
+                        <div id="previewHeader" class="w-full md:w-1/3 bg-slate-200 text-slate-900 p-6 flex flex-col items-center text-center space-y-4">
+                            <div id="imageContainer" class="w-28 h-28 rounded-full border-4 border-white overflow-hidden flex-shrink-0 flex items-center justify-center text-slate-600 text-xs shadow-md bg-white">
                                 <span id="imgPlaceholder">No Photo</span>
                                 <img id="previewImg" class="w-full h-full object-cover hidden" alt="Profile Picture">
                             </div>
@@ -279,7 +279,7 @@
                                     <p>✉️ <span id="previewEmailSb"></span></p>
                                     
                                     <!-- Boxed Links Container for LinkedIn and GitHub -->
-                                    <div id="socialLinksBox" class="hidden mt-2 p-2 bg-slate-200/90 rounded border border-slate-400 space-y-1">
+                                    <div id="socialLinksBox" class="hidden mt-2 p-2 bg-slate-300 rounded border border-slate-400 space-y-1">
                                         <div id="sbLinkedinBlock" class="hidden break-all text-[10px]">🔗 <span id="sbPreviewLinkedin"></span></div>
                                         <div id="sbGithubBlock" class="hidden break-all text-[10px]">💻 <span id="sbPreviewGithub"></span></div>
                                     </div>
@@ -363,7 +363,7 @@
         </div>
     </div>
 
-    <!-- JavaScript -->
+    <!-- JavaScript Complete & Fixed for PDF Rendering -->
     <script>
         const fullNameInput = document.getElementById('fullName');
         const jobTitleInput = document.getElementById('jobTitle');
@@ -479,19 +479,22 @@
             }
         });
 
-        dobInput.addEventListener('change', (e) => { 
+        dobInput.addEventListener('input', (e) => {
             const val = e.target.value;
-            sbPreviewDob.textContent = val || '-';
-            if(val) sbDobBlock.classList.remove('hidden');
-            else sbDobBlock.classList.add('hidden');
+            if(val) {
+                sbPreviewDob.textContent = val;
+                sbDobBlock.classList.remove('hidden');
+            } else {
+                sbDobBlock.classList.add('hidden');
+            }
         });
 
-        addressInput.addEventListener('input', (e) => { 
+        addressInput.addEventListener('input', (e) => {
             const val = e.target.value.trim();
-            sbPreviewAddress.textContent = val || '-';
-            stdAddress.textContent = val || '';
             if(val) {
+                sbPreviewAddress.textContent = val;
                 sbAddressBlock.classList.remove('hidden');
+                stdAddress.textContent = val;
                 stdAddressBlock.classList.remove('hidden');
             } else {
                 sbAddressBlock.classList.add('hidden');
@@ -499,67 +502,80 @@
             }
         });
 
-        nationalityInput.addEventListener('input', (e) => { 
+        nationalityInput.addEventListener('input', (e) => {
             const val = e.target.value.trim();
-            sbPreviewNationality.textContent = val || '-';
-            if(val) sbNationalityBlock.classList.remove('hidden');
-            else sbNationalityBlock.classList.add('hidden');
+            if(val) {
+                sbPreviewNationality.textContent = val;
+                sbNationalityBlock.classList.remove('hidden');
+            } else {
+                sbNationalityBlock.classList.add('hidden');
+            }
         });
 
-        genderInput.addEventListener('change', (e) => { 
+        genderInput.addEventListener('change', (e) => {
             const val = e.target.value;
-            sbPreviewGender.textContent = val || '-';
-            if(val) sbGenderBlock.classList.remove('hidden');
-            else sbGenderBlock.classList.add('hidden');
+            if(val) {
+                sbPreviewGender.textContent = val;
+                sbGenderBlock.classList.remove('hidden');
+            } else {
+                sbGenderBlock.classList.add('hidden');
+            }
         });
 
-        languagesInput.addEventListener('input', (e) => { 
+        languagesInput.addEventListener('input', (e) => {
             const val = e.target.value.trim();
-            sbPreviewLanguages.textContent = val || '-';
-            if(val) sbLanguagesBlock.classList.remove('hidden');
-            else sbLanguagesBlock.classList.add('hidden');
+            if(val) {
+                sbPreviewLanguages.textContent = val;
+                sbLanguagesBlock.classList.remove('hidden');
+            } else {
+                sbLanguagesBlock.classList.add('hidden');
+            }
         });
 
-        emailInput.addEventListener('input', (e) => { 
-            previewEmailSb.textContent = e.target.value; 
+        emailInput.addEventListener('input', (e) => {
+            previewEmailSb.textContent = e.target.value;
             stdEmail.textContent = e.target.value;
         });
-        
+
         phoneInput.addEventListener('input', (e) => {
-            if (!e.target.value.startsWith("+94 ")) {
-                e.target.value = "+94 ";
+            let val = e.target.value;
+            if(!val.startsWith('+94 ')) {
+                val = '+94 ' + val.replace(/^\+94\s*/, '');
+                e.target.value = val;
             }
-            let numbers = e.target.value.slice(4).replace(/\D/g, '').slice(0, 9);
-            e.target.value = "+94 " + numbers;
-            previewPhoneSb.textContent = e.target.value;
-            stdPhone.textContent = e.target.value;
+            previewPhoneSb.textContent = val;
+            stdPhone.textContent = val;
         });
 
-        function updateSocialBox() {
-            const linVal = linkedinInput.value.trim();
-            const gitVal = githubInput.value.trim();
+        // Social Links Logic
+        function updateSocialLinks() {
+            const linkedin = linkedinInput.value.trim();
+            const github = githubInput.value.trim();
+            let hasSocial = false;
 
-            if (linVal) {
-                sbPreviewLinkedin.textContent = linVal;
+            if(linkedin) {
+                sbPreviewLinkedin.textContent = linkedin;
                 sbLinkedinBlock.classList.remove('hidden');
-                stdLinkedin.textContent = "LinkedIn: " + linVal;
+                stdLinkedin.innerHTML = `🔗 <a href="${linkedin}" target="_blank" class="text-blue-600 underline">LinkedIn</a>`;
                 stdLinkedin.classList.remove('hidden');
+                hasSocial = true;
             } else {
                 sbLinkedinBlock.classList.add('hidden');
                 stdLinkedin.classList.add('hidden');
             }
 
-            if (gitVal) {
-                sbPreviewGithub.textContent = gitVal;
+            if(github) {
+                sbPreviewGithub.textContent = github;
                 sbGithubBlock.classList.remove('hidden');
-                stdGithub.textContent = "GitHub: " + gitVal;
+                stdGithub.innerHTML = `💻 <a href="${github}" target="_blank" class="text-blue-600 underline">GitHub</a>`;
                 stdGithub.classList.remove('hidden');
+                hasSocial = true;
             } else {
                 sbGithubBlock.classList.add('hidden');
                 stdGithub.classList.add('hidden');
             }
 
-            if (linVal || gitVal) {
+            if(hasSocial) {
                 socialLinksBox.classList.remove('hidden');
                 stdSocialBlock.classList.remove('hidden');
             } else {
@@ -568,14 +584,32 @@
             }
         }
 
-        linkedinInput.addEventListener('input', updateSocialBox);
-        githubInput.addEventListener('input', updateSocialBox);
+        linkedinInput.addEventListener('input', updateSocialLinks);
+        githubInput.addEventListener('input', updateSocialLinks);
 
+        // Profile Picture Upload
+        profilePicInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    previewImg.src = event.target.result;
+                    previewImg.classList.remove('hidden');
+                    imgPlaceholder.classList.add('hidden');
+                }
+                reader.readAsDataURL(file);
+            } else {
+                previewImg.classList.add('hidden');
+                imgPlaceholder.classList.remove('hidden');
+            }
+        });
+
+        // Dynamic Education Entries Handler
         function updateEducationPreview() {
+            const eduItems = document.querySelectorAll('.edu-item');
             previewEducationContainer.innerHTML = '';
-            const eduItems = educationContainer.querySelectorAll('.edu-item');
             let hasValidEdu = false;
-            
+
             eduItems.forEach(item => {
                 const degree = item.querySelector('.edu-degree').value.trim();
                 const institute = item.querySelector('.edu-institute').value.trim();
@@ -583,14 +617,14 @@
 
                 if(degree || institute || desc) {
                     hasValidEdu = true;
-                    const eduDiv = document.createElement('div');
-                    eduDiv.className = "p-2.5 bg-slate-50 border border-slate-200 rounded-md space-y-0.5 break-all";
-                    eduDiv.innerHTML = `
-                        <h5 class="font-bold text-slate-800 text-xs sm:text-sm">${degree}</h5>
-                        <p class="text-xs font-medium text-slate-600">${institute}</p>
-                        <p class="text-xs text-slate-500">${desc}</p>
+                    const div = document.createElement('div');
+                    div.className = 'text-xs space-y-0.5 break-all';
+                    div.innerHTML = `
+                        <p class="font-bold text-slate-800">${degree || ''}</p>
+                        <p class="font-medium text-slate-600">${institute || ''}</p>
+                        <p class="text-slate-500">${desc || ''}</p>
                     `;
-                    previewEducationContainer.appendChild(eduDiv);
+                    previewEducationContainer.appendChild(div);
                 }
             });
 
@@ -601,14 +635,13 @@
             }
         }
 
+        educationContainer.addEventListener('input', updateEducationPreview);
+
         addEduBtn.addEventListener('click', () => {
             const div = document.createElement('div');
-            div.className = "edu-item bg-slate-50 p-4 rounded-lg border border-slate-200 relative space-y-3";
+            div.className = 'edu-item bg-slate-50 p-4 rounded-lg border border-slate-200 relative space-y-3';
             div.innerHTML = `
-                <div class="flex justify-between items-center">
-                    <span class="text-xs font-semibold text-slate-500">Additional Qualification</span>
-                    <button type="button" class="removeEdu text-red-500 hover:text-red-700 text-xs font-bold">Remove</button>
-                </div>
+                <button type="button" class="remove-edu absolute top-2 right-2 text-red-500 hover:text-red-700 text-xs font-bold">✕ Remove</button>
                 <div>
                     <label class="block text-xs font-medium text-slate-600">Degree / Diploma / Course</label>
                     <input type="text" class="edu-degree mt-1 w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm" value="">
@@ -623,169 +656,119 @@
                 </div>
             `;
             educationContainer.appendChild(div);
-            attachEduListeners();
-            updateEducationPreview();
+
+            div.querySelector('.remove-edu').addEventListener('click', () => {
+                div.remove();
+                updateEducationPreview();
+            });
         });
 
-        function attachEduListeners() {
-            educationContainer.querySelectorAll('.edu-item').forEach(item => {
-                item.querySelectorAll('input').forEach(input => {
-                    input.removeEventListener('input', updateEducationPreview);
-                    input.addEventListener('input', updateEducationPreview);
-                });
-                const removeBtn = item.querySelector('.removeEdu');
-                if(removeBtn) {
-                    removeBtn.onclick = () => {
-                        item.remove();
-                        updateEducationPreview();
-                    };
+        // Skills & Experience Inputs Control
+        function handleTextAreaBlock(inputEl, blockEl, previewEl) {
+            inputEl.addEventListener('input', (e) => {
+                const val = e.target.value.trim();
+                if(val) {
+                    previewEl.textContent = val;
+                    blockEl.classList.remove('hidden');
+                } else {
+                    blockEl.classList.add('hidden');
                 }
             });
         }
 
-        attachEduListeners();
-        updateEducationPreview();
+        handleTextAreaBlock(techSkillsInput, skillsPreviewBlock, previewSkills);
+        handleTextAreaBlock(projectsInput, projectsPreviewBlock, previewProjects);
+        handleTextAreaBlock(trainingInput, trainingPreviewBlock, previewTraining);
+        handleTextAreaBlock(extraInput, extraPreviewBlock, previewExtra);
 
-        techSkillsInput.addEventListener('input', (e) => {
-            const val = e.target.value.trim();
-            previewSkills.textContent = val;
-            if(val) skillsPreviewBlock.classList.remove('hidden');
-            else skillsPreviewBlock.classList.add('hidden');
-        });
-
-        projectsInput.addEventListener('input', (e) => {
-            const val = e.target.value.trim();
-            previewProjects.textContent = val;
-            if(val) projectsPreviewBlock.classList.remove('hidden');
-            else projectsPreviewBlock.classList.add('hidden');
-        });
-
-        trainingInput.addEventListener('input', (e) => {
-            const val = e.target.value.trim();
-            previewTraining.textContent = val;
-            if(val) trainingPreviewBlock.classList.remove('hidden');
-            else trainingPreviewBlock.classList.add('hidden');
-        });
-
-        extraInput.addEventListener('input', (e) => {
-            const val = e.target.value.trim();
-            previewExtra.textContent = val;
-            if(val) extraPreviewBlock.classList.remove('hidden');
-            else extraPreviewBlock.classList.add('hidden');
-        });
-
-        function updateReferences() {
+        // References Handler
+        function updateReferencesPreview() {
             const name = refNameInput.value.trim();
             const inst = refInstituteInput.value.trim();
-            const cont = refContactInput.value.trim();
+            const contact = refContactInput.value.trim();
 
-            previewRefName.textContent = name;
-            previewRefInst.textContent = inst;
-            previewRefContact.textContent = cont;
-
-            if (name || inst || cont) {
+            if(name || inst || contact) {
+                previewRefName.textContent = name;
+                previewRefInst.textContent = inst;
+                previewRefContact.textContent = contact;
                 refMainBlock.classList.remove('hidden');
             } else {
                 refMainBlock.classList.add('hidden');
             }
         }
 
-        refNameInput.addEventListener('input', updateReferences);
-        refInstituteInput.addEventListener('input', updateReferences);
-        refContactInput.addEventListener('input', updateReferences);
-        updateReferences();
+        refNameInput.addEventListener('input', updateReferencesPreview);
+        refInstituteInput.addEventListener('input', updateReferencesPreview);
+        refContactInput.addEventListener('input', updateReferencesPreview);
 
-        profilePicInput.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    previewImg.src = event.target.result;
-                    previewImg.classList.remove('hidden');
-                    imgPlaceholder.classList.add('hidden');
-                }
-                reader.readAsDataURL(file);
-            }
-        });
-
-        window.addEventListener('DOMContentLoaded', () => { 
-            applyGreySidebarLayout(); 
-            sbPreviewNationality.textContent = "Sri Lankan";
-            sbNationalityBlock.classList.remove('hidden');
-            sbPreviewLanguages.textContent = "Sinhala, English";
-            sbLanguagesBlock.classList.remove('hidden');
-        });
-
-        function applyGreySidebarLayout() {
-            cvPreview.className = "bg-white border border-slate-300 rounded-lg shadow-sm overflow-hidden flex flex-col md:flex-row w-full";
-            // Changed to bg-slate-200 for a much softer, lighter side panel look
-            previewHeader.className = "w-full md:w-1/3 bg-slate-200 text-slate-900 p-6 flex flex-col items-center text-center space-y-4";
-            imageContainer.className = "w-28 h-28 rounded-full border-4 border-white overflow-hidden flex-shrink-0 flex items-center justify-center text-slate-600 text-xs shadow-md";
-            previewContact.className = "w-full md:w-2/3 p-6 space-y-4 font-sans text-slate-800 bg-white";
-            sidebarPersonalInfo.classList.add('hidden');
-            previewHeader.style.display = 'flex';
-            nameTitleBox.classList.remove('hidden');
-            
-            sidebarPersonalInfo.classList.remove('hidden');
-            standardContactBox.classList.add('hidden');
-            nameTitleBox.classList.add('hidden');
-        }
-
+        // Template Selector Styles Switcher
         templateSelector.addEventListener('change', (e) => {
             const val = e.target.value;
-            imageContainer.classList.remove('hidden');
-            imageUploadWrapper.style.display = 'block';
-
-            if (val === 'greySidebar') { 
-                applyGreySidebarLayout(); 
+            
+            if(val === 'greySidebar') {
+                cvPreview.className = "bg-white border border-slate-300 rounded-lg shadow-sm overflow-hidden flex flex-col md:flex-row w-full";
+                previewHeader.className = "w-full md:w-1/3 bg-slate-200 text-slate-900 p-6 flex flex-col items-center text-center space-y-4";
+                sidebarPersonalInfo.classList.remove('hidden');
+                nameTitleBox.classList.remove('hidden');
+                standardContactBox.classList.add('hidden');
+                imageUploadWrapper.classList.remove('hidden');
+                imageContainer.classList.remove('hidden');
+                eduHeading.className = "text-xs font-bold uppercase tracking-wider text-blue-600 mb-2";
+                skillsHeading.className = "text-xs font-bold uppercase tracking-wider text-blue-600 mb-1";
+                refHeading.className = "text-xs font-bold uppercase tracking-wider text-blue-600 mb-1";
             } 
-            else if (val === 'topBanner') {
+            else if(val === 'topBanner') {
                 cvPreview.className = "bg-white border border-slate-300 rounded-lg shadow-sm overflow-hidden flex flex-col w-full";
-                // Changed to bg-slate-300 for a very soft, light top banner look
-                previewHeader.className = "w-full bg-slate-300 text-slate-900 p-6 flex flex-row items-center space-x-6 text-left";
-                imageContainer.className = "w-20 h-20 rounded-full border-2 border-white overflow-hidden flex-shrink-0 flex items-center justify-center text-slate-700 text-xs shadow-md";
-                previewContact.className = "w-full p-6 space-y-4 font-sans text-slate-800 bg-white";
+                previewHeader.className = "w-full bg-slate-100 text-slate-900 p-6 flex flex-col items-center text-center space-y-3 border-b";
                 sidebarPersonalInfo.classList.add('hidden');
-                standardContactBox.classList.remove('hidden');
                 nameTitleBox.classList.remove('hidden');
+                standardContactBox.classList.remove('hidden');
+                imageUploadWrapper.classList.remove('hidden');
+                imageContainer.classList.remove('hidden');
+                eduHeading.className = "text-xs font-bold uppercase tracking-wider text-emerald-600 mb-2";
+                skillsHeading.className = "text-xs font-bold uppercase tracking-wider text-emerald-600 mb-1";
+                refHeading.className = "text-xs font-bold uppercase tracking-wider text-emerald-600 mb-1";
             } 
-            else if (val === 'ats') {
-                imageContainer.classList.add('hidden');
-                imageUploadWrapper.style.display = 'none';
+            else if(val === 'ats') {
+                cvPreview.className = "bg-white border border-slate-300 rounded-lg shadow-sm overflow-hidden flex flex-col w-full p-6";
+                previewHeader.className = "hidden";
                 sidebarPersonalInfo.classList.add('hidden');
-                standardContactBox.classList.remove('hidden');
                 nameTitleBox.classList.remove('hidden');
-                cvPreview.className = "p-6 bg-white border border-slate-300 rounded-none shadow-none space-y-3 font-sans text-slate-900 flex flex-col w-full";
-                previewHeader.className = "text-center pb-4 border-b-2 border-slate-800 p-0 bg-transparent text-slate-900 w-full flex flex-col items-center";
-                previewContact.className = "w-full p-0 space-y-4 font-sans text-slate-900 bg-white";
+                standardContactBox.classList.remove('hidden');
+                imageUploadWrapper.classList.add('hidden');
+                imageContainer.classList.add('hidden');
+                eduHeading.className = "text-xs font-bold uppercase tracking-wider text-slate-900 mb-2 border-b pb-1";
+                skillsHeading.className = "text-xs font-bold uppercase tracking-wider text-slate-900 mb-1 border-b pb-1";
+                refHeading.className = "text-xs font-bold uppercase tracking-wider text-slate-900 mb-1 border-b pb-1";
             }
         });
 
-        // Form Validation & PDF Download Logic
+        // PDF Download Validation & Execution Fix
         downloadBtn.addEventListener('click', () => {
             const nameVal = fullNameInput.value.trim();
             const emailVal = emailInput.value.trim();
             const phoneVal = phoneInput.value.trim();
 
-            if (!nameVal || !emailVal || phoneVal === "+94 " || !phoneVal) {
+            if(!nameVal || !emailVal || !phoneVal || phoneVal === '+94') {
                 errorMsgBox.classList.remove('hidden');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
                 return;
             } else {
                 errorMsgBox.classList.add('hidden');
             }
 
             const element = document.getElementById('cvPreview');
-            const options = {
-                margin:       [5, 5, 5, 5],
-                filename:     (nameVal ? nameVal.replace(/\s+/g, '_') : 'My') + '_Professional_CV.pdf',
+            
+            // Fixed configuration to make sure text and contents never disappear or blank out during PDF render
+            const opt = {
+                margin:       0.2,
+                filename:     (nameVal ? nameVal.replace(/\s+/g, '_') : 'My_CV') + '_CV.pdf',
                 image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, useCORS: true, letterRendering: true },
-                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait', putOnlyUsedFonts: true }
+                html2canvas:  { scale: 2, useCORS: true, logging: false, letterRendering: true },
+                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
             };
-            html2pdf().from(element).set(options).save();
+
+            html2pdf().from(element).set(opt).save();
         });
     </script>
-
 </body>
 </html>

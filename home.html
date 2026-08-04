@@ -566,8 +566,6 @@
     currentReviews.push({ stars: selectedStars, text: reviewText, date: new Date().toLocaleDateString() });
     localStorage.setItem('all_reviews', JSON.stringify(currentReviews));
 
-    // (Note: total_reviews_count කොටස ඉවත් කරන ලදී, දැන් admin dashboard එකෙන් all_reviews ලෙන්ත් එක මඟින් නිවැරදි ගණන බලාගත හැක)
-
     // 2. Show success message and disable the button
     feedbackSuccessMsg.classList.remove('hidden');
     submitFeedbackBtn.disabled = true;

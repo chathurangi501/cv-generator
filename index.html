@@ -6,27 +6,42 @@
     <title>Sri Lankan CV & Internship Generator</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
     <!-- html2pdf Library for PDF Download -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
-<body class="bg-slate-100 min-h-screen p-4 sm:p-6">
+<body class="bg-slate-100 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-screen p-4 sm:p-6 font-sans relative">
 
     <div class="max-w-7xl mx-auto">
         <header class="text-center mb-8">
-            <h1 class="text-2xl sm:text-3xl font-bold text-slate-800">Sri Lankan CV & Internship Generator</h1>
-            <p class="text-slate-600 mt-2 text-sm sm:text-base">Unique Templates Layout</p>
-        </header>
+    <h1 class="text-2xl sm:text-3xl font-bold text-slate-800 dark:text-slate-100">Sri Lankan CV & Internship Generator</h1>
+    <p class="text-slate-600 dark:text-slate-400 mt-2 text-sm sm:text-base">Unique Templates Layout</p>
+</header>
+
+        <!-- Page eken ain wena link/button eka -->
+         <button onclick="document.documentElement.classList.toggle('dark')" class="bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-800 dark:text-yellow-400 text-sm font-semibold py-2 px-4 rounded-xl shadow-md transition">
+               🌙 Dark
+         </button>
+        <div class="mb-6 flex justify-center gap-4">
+            <a href="home.html" class="bg-slate-700 hover:bg-slate-800 text-white text-sm font-semibold py-2 px-4 rounded-xl shadow-md transition">
+                &larr; Home Page
+            </a>
+        </div>
 
         <!-- Main Grid Layout -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
             
             <!-- Left Side: Input Form -->
-            <div class="bg-white p-4 sm:p-6 rounded-xl shadow-md space-y-6">
+            <div class="bg-white p-4 sm:p-6 rounded-2xl shadow-xl border border-slate-200 space-y-6">
                 
                 <!-- Template Selector (3 Distinct Layouts) -->
                 <div>
                     <label class="block text-sm font-semibold text-slate-700 mb-2">Select CV Template</label>
-                    <select id="templateSelector" class="w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm">
+                    <select id="templateSelector" class="w-full p-2.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-slate-500 focus:outline-none text-sm bg-slate-50">
                         <option value="greySidebar" selected>1. Grey Sidebar Profile Layout</option>
                         <option value="topBanner">2. Modern Top Banner Layout (Very Soft Color)</option>
                         <option value="ats">3. ATS-Friendly Professional</option>
@@ -35,60 +50,62 @@
 
                 <!-- 1. Personal Information -->
                 <div>
-                    <h2 class="text-lg sm:text-xl font-semibold text-slate-700 mb-4">1. Personal Information</h2>
+                    <h2 class="text-lg sm:text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-slate-600"></span> 1. Personal Information
+                    </h2>
                     
                     <div class="space-y-4">
                         <div id="imageUploadWrapper">
-                            <label class="block text-sm font-medium text-slate-600">Profile Picture</label>
+                            <label class="block text-sm font-medium text-slate-600 mb-1">Profile Picture</label>
                             <input type="file" id="profilePicInput" accept="image/*" 
-                                class="mt-1 w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                                class="w-full text-sm text-slate-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200 cursor-pointer border border-slate-300 rounded-xl p-1">
                         </div>
 
                         <!-- FULL NAME -->
                         <div>
-                            <label class="block text-sm font-medium text-slate-600">Full Name *</label>
+                            <label class="block text-sm font-medium text-slate-600 mb-1">Full Name *</label>
                             <input type="text" id="fullName" value=""
-                                class="mt-1 w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm">
+                                class="w-full p-2.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-slate-500 focus:outline-none text-sm bg-slate-50">
                         </div>
                         
                         <!-- JOB TITLE -->
                         <div>
-                            <label class="block text-sm font-medium text-slate-600">Job Title / Designation *</label>
+                            <label class="block text-sm font-medium text-slate-600 mb-1">Job Title / Designation *</label>
                             <input type="text" id="jobTitle" value=""
-                                class="mt-1 w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm">
+                                class="w-full p-2.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-slate-500 focus:outline-none text-sm bg-slate-50">
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-slate-600">Job Title Short Description / Objective</label>
+                            <label class="block text-sm font-medium text-slate-600 mb-1">Job Title Short Description / Objective</label>
                             <textarea id="jobTitleDesc" rows="3"
-                                class="mt-1 w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"></textarea>
+                                class="w-full p-2.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-slate-500 focus:outline-none text-sm bg-slate-50"></textarea>
                         </div>
 
                         <!-- BIRTHDAY -->
                         <div>
-                            <label class="block text-sm font-medium text-slate-600">Date of Birth</label>
+                            <label class="block text-sm font-medium text-slate-600 mb-1">Date of Birth</label>
                             <input type="date" id="dobInput" 
-                                class="mt-1 w-full p-2 border border-slate-300 rounded-lg bg-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                                class="w-full p-2.5 border border-slate-300 rounded-xl bg-slate-50 text-sm focus:ring-2 focus:ring-slate-500 focus:outline-none">
                         </div>
 
                         <!-- ADDRESS -->
                         <div>
-                            <label class="block text-sm font-medium text-slate-600">Address / City</label>
+                            <label class="block text-sm font-medium text-slate-600 mb-1">Address / City</label>
                             <input type="text" id="addressInput" value="" 
-                                class="mt-1 w-full p-2 border border-slate-300 rounded-lg bg-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                                class="w-full p-2.5 border border-slate-300 rounded-xl bg-slate-50 text-sm focus:ring-2 focus:ring-slate-500 focus:outline-none">
                         </div>
 
                         <!-- NATIONALITY -->
                         <div>
-                            <label class="block text-sm font-medium text-slate-600">Nationality</label>
+                            <label class="block text-sm font-medium text-slate-600 mb-1">Nationality</label>
                             <input type="text" id="nationalityInput" value="Sri Lankan" 
-                                class="mt-1 w-full p-2 border border-slate-300 rounded-lg bg-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                                class="w-full p-2.5 border border-slate-300 rounded-xl bg-slate-50 text-sm focus:ring-2 focus:ring-slate-500 focus:outline-none">
                         </div>
 
                         <!-- GENDER -->
                         <div>
-                            <label class="block text-sm font-medium text-slate-600">Gender</label>
-                            <select id="genderInput" class="mt-1 w-full p-2 border border-slate-300 rounded-lg bg-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                            <label class="block text-sm font-medium text-slate-600 mb-1">Gender</label>
+                            <select id="genderInput" class="w-full p-2.5 border border-slate-300 rounded-xl bg-slate-50 text-sm focus:ring-2 focus:ring-slate-500 focus:outline-none">
                                 <option value="">Select Gender</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
@@ -98,37 +115,37 @@
 
                         <!-- LANGUAGES -->
                         <div>
-                            <label class="block text-sm font-medium text-slate-600">Languages (e.g. Sinhala, English)</label>
+                            <label class="block text-sm font-medium text-slate-600 mb-1">Languages (e.g. Sinhala, English)</label>
                             <input type="text" id="languagesInput" value="Sinhala, English" 
-                                class="mt-1 w-full p-2 border border-slate-300 rounded-lg bg-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                                class="w-full p-2.5 border border-slate-300 rounded-xl bg-slate-50 text-sm focus:ring-2 focus:ring-slate-500 focus:outline-none">
                         </div>
 
                         <!-- Contact Details -->
-                        <div class="pt-2 border-t space-y-4">
+                        <div class="pt-4 border-t border-slate-200 space-y-4">
                             <div>
-                                <label class="block text-sm font-medium text-slate-600">Email *</label>
+                                <label class="block text-sm font-medium text-slate-600 mb-1">Email *</label>
                                 <input type="email" id="email" maxlength="50" value=""
-                                    class="mt-1 w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm">
+                                    class="w-full p-2.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-slate-500 focus:outline-none text-sm bg-slate-50">
                             </div>
 
                             <div>
-                                <label class="block text-sm font-medium text-slate-600">Phone Number *</label>
+                                <label class="block text-sm font-medium text-slate-600 mb-1">Phone Number *</label>
                                 <input type="text" id="phone" value="+94 " maxlength="13" 
-                                    class="mt-1 w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm">
+                                    class="w-full p-2.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-slate-500 focus:outline-none text-sm bg-slate-50">
                             </div>
                         </div>
 
                         <!-- Social Links Box -->
-                        <div class="pt-2 border-t space-y-3 bg-slate-50 p-3 rounded-lg border border-slate-200">
+                        <div class="pt-3 border-t border-slate-200 space-y-3 bg-slate-50/70 p-4 rounded-xl border">
                             <div>
-                                <label class="block text-xs font-medium text-slate-600">LinkedIn Profile URL</label>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">LinkedIn Profile URL</label>
                                 <input type="text" id="linkedinInput" value="" 
-                                    class="mt-1 w-full p-2 border border-slate-300 rounded-lg bg-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                                    class="w-full p-2 border border-slate-300 rounded-lg bg-white text-sm focus:ring-2 focus:ring-slate-500 focus:outline-none">
                             </div>
                             <div>
-                                <label class="block text-xs font-medium text-slate-600">GitHub / Portfolio URL</label>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">GitHub / Portfolio URL</label>
                                 <input type="text" id="githubInput" value="" 
-                                    class="mt-1 w-full p-2 border border-slate-300 rounded-lg bg-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                                    class="w-full p-2 border border-slate-300 rounded-lg bg-white text-sm focus:ring-2 focus:ring-slate-500 focus:outline-none">
                             </div>
                         </div>
 
@@ -136,83 +153,89 @@
                 </div>
 
                 <!-- 2. Education Section Input -->
-                <div class="border-t pt-4">
+                <div class="border-t border-slate-200 pt-5">
                     <div class="flex justify-between items-center mb-4">
-                        <h2 class="text-lg sm:text-xl font-semibold text-slate-700">2. Education Qualifications</h2>
-                        <button type="button" id="addEduBtn" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold py-1.5 px-3 rounded-lg shadow transition">
+                        <h2 class="text-lg sm:text-xl font-bold text-slate-800 flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-slate-600"></span> 2. Education Qualifications
+                        </h2>
+                        <button type="button" id="addEduBtn" class="bg-slate-700 hover:bg-slate-800 text-white text-xs font-semibold py-2 px-3.5 rounded-xl shadow-md transition">
                             + Add Education
                         </button>
                     </div>
                     
                     <div id="educationContainer" class="space-y-4">
-                        <div class="edu-item bg-slate-50 p-4 rounded-lg border border-slate-200 relative space-y-3">
+                        <div class="edu-item bg-slate-50/70 p-4 rounded-xl border border-slate-200 relative space-y-3">
                             <div>
-                                <label class="block text-xs font-medium text-slate-600">Degree / Diploma / Course</label>
-                                <input type="text" class="edu-degree mt-1 w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm" value="">
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">Degree / Diploma / Course</label>
+                                <input type="text" class="edu-degree w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:outline-none text-sm bg-white" value="">
                             </div>
                             <div>
-                                <label class="block text-xs font-medium text-slate-600">Institute / School</label>
-                                <input type="text" class="edu-institute mt-1 w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm" value="">
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">Institute / School</label>
+                                <input type="text" class="edu-institute w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:outline-none text-sm bg-white" value="">
                             </div>
                             <div>
-                                <label class="block text-xs font-medium text-slate-600">Details / Year / Results</label>
-                                <input type="text" class="edu-desc mt-1 w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm" value="">
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">Details / Year / Results</label>
+                                <input type="text" class="edu-desc w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:outline-none text-sm bg-white" value="">
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- 3. Skills & Categorized Experience Section Input -->
-                <div class="border-t pt-4">
-                    <h2 class="text-lg sm:text-xl font-semibold text-slate-700 mb-4">3. Skills & Experience Sections</h2>
-                    <p class="text-xs text-slate-500 mb-3">Leave empty any section you don't need; it will automatically hide from the preview!</p>
+                <div class="border-t border-slate-200 pt-5">
+                    <h2 class="text-lg sm:text-xl font-bold text-slate-800 mb-1 flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-slate-600"></span> 3. Skills & Experience Sections
+                    </h2>
+                    <p class="text-xs text-slate-500 mb-4">Leave empty any section you don't need; it will automatically hide from the preview!</p>
                     
                     <div class="space-y-4">
                         <div>
-                            <label class="block text-sm font-medium text-slate-600">Technical / Professional Skills</label>
-                            <textarea id="techSkills" rows="2" placeholder="e.g. JavaScript, PHP, MySQL, Git, UI/UX"
-                                class="mt-1 w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"></textarea>
+                            <label class="block text-sm font-medium text-slate-600 mb-1">Technical / Professional Skills</label>
+                            <textarea id="techSkills" rows="2" placeholder=""
+                                class="w-full p-2.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-slate-500 focus:outline-none text-sm bg-slate-50"></textarea>
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-slate-600">Projects / Development Experience (Optional)</label>
-                            <textarea id="projectsInput" rows="3" placeholder="Leave empty if you don't have projects yet..."
-                                class="mt-1 w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"></textarea>
+                            <label class="block text-sm font-medium text-slate-600 mb-1">Projects / Development Experience (Optional)</label>
+                            <textarea id="projectsInput" rows="3" placeholder=""
+                                class="w-full p-2.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-slate-500 focus:outline-none text-sm bg-slate-50"></textarea>
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-slate-600">Professional Training / Internships (Optional)</label>
-                            <textarea id="trainingInput" rows="2" placeholder="Details about training programs or internships..."
-                                class="mt-1 w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"></textarea>
+                            <label class="block text-sm font-medium text-slate-600 mb-1">Professional Training / Internships (Optional)</label>
+                            <textarea id="trainingInput" rows="2" placeholder=""
+                                class="w-full p-2.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-slate-500 focus:outline-none text-sm bg-slate-50"></textarea>
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-slate-600">Extracurricular Activities & Leadership</label>
-                            <textarea id="extraInput" rows="2" placeholder="e.g. Batch Treasurer, Club Memberships, Volunteering..."
-                                class="mt-1 w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"></textarea>
+                            <label class="block text-sm font-medium text-slate-600 mb-1">Extracurricular Activities & Leadership</label>
+                            <textarea id="extraInput" rows="2" placeholder=""
+                                class="w-full p-2.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-slate-500 focus:outline-none text-sm bg-slate-50"></textarea>
                         </div>
                     </div>
                 </div>
 
                 <!-- 4. References Input -->
-                <div class="border-t pt-4">
-                    <h2 class="text-lg sm:text-xl font-semibold text-slate-700 mb-4">4. References</h2>
+                <div class="border-t border-slate-200 pt-5">
+                    <h2 class="text-lg sm:text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-slate-600"></span> 4. References
+                    </h2>
                     
                     <div class="space-y-4">
                         <div>
-                            <label class="block text-sm font-medium text-slate-600">Reference Name & Title</label>
+                            <label class="block text-sm font-medium text-slate-600 mb-1">Reference Name & Title</label>
                             <input type="text" id="refName" value=""
-                                class="mt-1 w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm">
+                                class="w-full p-2.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-slate-500 focus:outline-none text-sm bg-slate-50">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-slate-600">Institute / Company</label>
+                            <label class="block text-sm font-medium text-slate-600 mb-1">Institute / Company</label>
                             <input type="text" id="refInstitute" value=""
-                                class="mt-1 w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm">
+                                class="w-full p-2.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-slate-500 focus:outline-none text-sm bg-slate-50">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-slate-600">Contact Details (Email / Phone)</label>
+                            <label class="block text-sm font-medium text-slate-600 mb-1">Contact Details (Email / Phone)</label>
                             <input type="text" id="refContact" value=""
-                                class="mt-1 w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm">
+                                class="w-full p-2.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-slate-500 focus:outline-none text-sm bg-slate-50">
                         </div>
                     </div>
                 </div>
@@ -220,22 +243,24 @@
             </div>
 
             <!-- Right Side: Live CV Preview & Download -->
-            <div class="bg-white p-4 sm:p-8 rounded-xl shadow-md border border-slate-200 flex flex-col justify-between">
+            <div class="bg-white p-4 sm:p-8 rounded-2xl shadow-xl border border-slate-200 flex flex-col justify-between">
                 <div>
-                    <div class="flex flex-col sm:flex-row justify-between items-center mb-4 pb-2 border-b gap-3">
-                        <h2 class="text-lg sm:text-xl font-semibold text-slate-700">Live CV Preview</h2>
-                        <button id="downloadBtn" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold py-2 px-4 rounded-lg shadow transition">
-                            Download PDF
+                    <div class="flex flex-col sm:flex-row justify-between items-center mb-6 pb-3 border-b border-slate-200 gap-3">
+                        <h2 class="text-lg sm:text-xl font-bold text-slate-800">Live CV Preview</h2>
+                       <button id="downloadBtn" onclick="triggerDownloadAndSave()" class="w-full sm:w-auto bg-[#1e293b] hover:bg-[#0f172a] text-white font-semibold text-sm sm:text-base py-2.5 px-5 rounded-xl shadow-md hover:shadow-lg active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer border border-slate-700">
+    <span class="text-base">📥</span>
+    <span>Download PDF</span>
+</button>
                         </button>
                     </div>
                     
                     <!-- Validation Error Box -->
-                    <div id="errorMsgBox" class="hidden mb-4 p-3 bg-red-50 border border-red-200 text-red-600 text-xs sm:text-sm rounded-lg">
+                    <div id="errorMsgBox" class="hidden mb-4 p-3.5 bg-red-50 border border-red-200 text-red-700 text-xs sm:text-sm rounded-xl">
                         ⚠️ Please fill in your **Full Name**, **Email**, and **Phone Number** before downloading the PDF!
                     </div>
 
                     <!-- CV Container -->
-                    <div id="cvPreview" class="bg-white border border-slate-300 rounded-lg shadow-sm overflow-hidden flex flex-col md:flex-row w-full">
+                    <div id="cvPreview" class="bg-white border border-slate-300 rounded-xl shadow-sm overflow-hidden flex flex-col md:flex-row w-full">
                         
                         <!-- Left Sidebar Preview Area -->
                         <div id="previewHeader" class="w-full md:w-1/3 bg-slate-200 text-slate-900 p-6 flex flex-col items-center text-center space-y-4">
@@ -293,7 +318,7 @@
                             <!-- Name, Job Title & Description Section -->
                             <div id="nameTitleBox" class="border-b pb-3 text-center">
                                 <h3 id="previewName" class="text-xl sm:text-2xl font-bold text-slate-900 tracking-wide break-all"></h3>
-                                <p id="previewTitle" class="text-blue-600 text-xs sm:text-sm font-semibold mt-0.5 break-all"></p>
+                                <p id="previewTitle" class="text-slate-700 text-xs sm:text-sm font-semibold mt-0.5 break-all"></p>
                                 <p id="previewTitleDesc" class="text-xs text-slate-600 mt-1.5 italic whitespace-pre-line break-all hidden"></p>
                             </div>
 
@@ -309,13 +334,13 @@
 
                             <!-- Education Preview Box -->
                             <div id="eduMainBlock" class="border-t pt-2 hidden">
-                                <h4 id="eduHeading" class="text-xs font-bold uppercase tracking-wider text-blue-600 mb-2">Education Qualifications</h4>
+                                <h4 id="eduHeading" class="text-xs font-bold uppercase tracking-wider text-slate-800 mb-2">Education Qualifications</h4>
                                 <div id="previewEducationContainer" class="space-y-2"></div>
                             </div>
 
                             <!-- Technical Skills Preview Box -->
                             <div id="skillsPreviewBlock" class="border-t pt-2 hidden">
-                                <h4 id="skillsHeading" class="text-xs font-bold uppercase tracking-wider text-blue-600 mb-1">Technical Skills</h4>
+                                <h4 id="skillsHeading" class="text-xs font-bold uppercase tracking-wider text-slate-800 mb-1">Technical Skills</h4>
                                 <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-md">
                                     <p id="previewSkills" class="text-xs text-slate-700 break-all"></p>
                                 </div>
@@ -323,7 +348,7 @@
 
                             <!-- Projects Preview Box -->
                             <div id="projectsPreviewBlock" class="border-t pt-2 hidden">
-                                <h4 class="text-xs font-bold uppercase tracking-wider text-blue-600 mb-1">Projects & Development Experience</h4>
+                                <h4 class="text-xs font-bold uppercase tracking-wider text-slate-800 mb-1">Projects & Development Experience</h4>
                                 <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-md">
                                     <p id="previewProjects" class="text-xs text-slate-700 whitespace-pre-line break-all"></p>
                                 </div>
@@ -331,7 +356,7 @@
 
                             <!-- Professional Training Preview Box -->
                             <div id="trainingPreviewBlock" class="border-t pt-2 hidden">
-                                <h4 class="text-xs font-bold uppercase tracking-wider text-blue-600 mb-1">Professional Training & Internships</h4>
+                                <h4 class="text-xs font-bold uppercase tracking-wider text-slate-800 mb-1">Professional Training & Internships</h4>
                                 <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-md">
                                     <p id="previewTraining" class="text-xs text-slate-700 whitespace-pre-line break-all"></p>
                                 </div>
@@ -339,7 +364,7 @@
 
                             <!-- Extracurricular Preview Box -->
                             <div id="extraPreviewBlock" class="border-t pt-2 hidden">
-                                <h4 class="text-xs font-bold uppercase tracking-wider text-blue-600 mb-1">Extracurricular Activities & Leadership</h4>
+                                <h4 class="text-xs font-bold uppercase tracking-wider text-slate-800 mb-1">Extracurricular Activities & Leadership</h4>
                                 <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-md">
                                     <p id="previewExtra" class="text-xs text-slate-700 whitespace-pre-line break-all"></p>
                                 </div>
@@ -347,7 +372,7 @@
 
                             <!-- References Preview Box -->
                             <div id="refMainBlock" class="border-t pt-2 hidden">
-                                <h4 id="refHeading" class="text-xs font-bold uppercase tracking-wider text-blue-600 mb-1">References</h4>
+                                <h4 id="refHeading" class="text-xs font-bold uppercase tracking-wider text-slate-800 mb-1">References</h4>
                                 <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-md space-y-0.5 break-all">
                                     <h5 id="previewRefName" class="font-bold text-slate-800 text-xs sm:text-sm"></h5>
                                     <p id="previewRefInst" class="text-xs font-medium text-slate-600"></p>
@@ -358,6 +383,53 @@
 
                     </div>
                 </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Thank You & Review Modal Overlay -->
+    <div id="thankYouModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 text-center space-y-5 animate-scaleUp">
+            
+            <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-3xl font-bold">
+                ✓
+            </div>
+
+            <div>
+                <h3 class="text-xl font-bold text-slate-800">Thank You!</h3>
+                <p class="text-slate-600 text-sm mt-1">Your professional CV has been downloaded successfully. We wish you the best for your internship & career!</p>
+            </div>
+
+            <!-- Review / Feedback Box -->
+            <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl text-left space-y-3">
+                <label class="block text-xs font-semibold text-slate-700">How was your experience with this CV Generator?</label>
+                
+                <!-- Star Rating (All stars start unselected/gray) -->
+                <div id="starContainer" class="flex justify-center gap-1 text-2xl cursor-pointer">
+                    <span class="star text-slate-300" data-value="1">★</span>
+                    <span class="star text-slate-300" data-value="2">★</span>
+                    <span class="star text-slate-300" data-value="3">★</span>
+                    <span class="star text-slate-300" data-value="4">★</span>
+                    <span class="star text-slate-300" data-value="5">★</span>
+                </div>
+
+                <textarea id="feedbackText" rows="2" placeholder="" class="w-full p-2 border border-slate-300 rounded-lg text-xs bg-white focus:outline-none focus:ring-1 focus:ring-slate-500"></textarea>
+                
+                <button type="button" id="submitFeedbackBtn" class="w-full bg-slate-700 hover:bg-slate-800 text-white text-xs font-semibold py-2 rounded-lg transition">
+                    Submit Review
+                </button>
+                <p id="feedbackSuccessMsg" class="text-center text-emerald-600 text-xs hidden font-medium">✨ Thank you for your valuable feedback!</p>
+            </div>
+
+            <!-- Navigation Actions -->
+            <div class="flex gap-3 pt-2">
+                <a href="home.html" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 text-sm font-semibold py-2.5 rounded-xl transition text-center">
+                    Back to Home
+                </a>
+                <button type="button" id="closeModalBtn" class="flex-1 bg-slate-800 hover:bg-slate-900 text-white text-sm font-semibold py-2.5 rounded-xl transition">
+                    Create Another CV
+                </button>
             </div>
 
         </div>
@@ -462,6 +534,53 @@
         const skillsHeading = document.getElementById('skillsHeading');
         const refHeading = document.getElementById('refHeading');
 
+        // Modal Elements
+        const thankYouModal = document.getElementById('thankYouModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const submitFeedbackBtn = document.getElementById('submitFeedbackBtn');
+        const feedbackSuccessMsg = document.getElementById('feedbackSuccessMsg');
+        const stars = document.querySelectorAll('.star');
+
+        // Star Rating Logic (Customer can select rating freely)
+        stars.forEach((star, idx) => {
+            star.addEventListener('click', () => {
+                stars.forEach((s, i) => {
+                    if(i <= idx) {
+                        s.classList.remove('text-slate-300');
+                        s.classList.add('text-amber-400');
+                    } else {
+                        s.classList.remove('text-amber-400');
+                        s.classList.add('text-slate-300');
+                    }
+                });
+            });
+        });
+
+       submitFeedbackBtn.addEventListener('click', () => {
+    const selectedStars = document.querySelectorAll('.star.text-amber-400').length;
+    const reviewText = document.getElementById('feedbackText').value.trim();
+
+    if (selectedStars === 0) {
+        alert('Please select a star rating before submitting your review!');
+        return;
+    }
+// 1. Save review details as an array
+    let currentReviews = JSON.parse(localStorage.getItem('all_reviews')) || [];
+    currentReviews.push({ stars: selectedStars, text: reviewText, date: new Date().toLocaleDateString() });
+    localStorage.setItem('all_reviews', JSON.stringify(currentReviews));
+
+    // (Note: total_reviews_count කොටස ඉවත් කරන ලදී, දැන් admin dashboard එකෙන් all_reviews ලෙන්ත් එක මඟින් නිවැරදි ගණන බලාගත හැක)
+
+    // 2. Show success message and disable the button
+    feedbackSuccessMsg.classList.remove('hidden');
+    submitFeedbackBtn.disabled = true;
+    submitFeedbackBtn.classList.add('opacity-50');
+    document.getElementById('feedbackTest').value = ''; // (හෝ feedbackText)
+});
+        closeModalBtn.addEventListener('click', () => {
+            thankYouModal.classList.add('hidden');
+        });
+
         // Input Listeners
         fullNameInput.addEventListener('input', (e) => { 
             previewName.textContent = e.target.value; 
@@ -479,14 +598,19 @@
             }
         });
 
-        dobInput.addEventListener('input', (e) => {
-            const val = e.target.value;
-            if(val) {
-                sbPreviewDob.textContent = val;
-                sbDobBlock.classList.remove('hidden');
-            } else {
-                sbDobBlock.classList.add('hidden');
+        emailInput.addEventListener('input', (e) => {
+            previewEmailSb.textContent = e.target.value;
+            stdEmail.textContent = e.target.value;
+        });
+
+        phoneInput.addEventListener('input', (e) => {
+            let val = e.target.value;
+            if(!val.startsWith('+94 ')) {
+                val = '+94 ' + val.replace(/^\+94\s*/, '');
             }
+            e.target.value = val;
+            previewPhoneSb.textContent = val;
+            stdPhone.textContent = val;
         });
 
         addressInput.addEventListener('input', (e) => {
@@ -522,6 +646,16 @@
             }
         });
 
+        dobInput.addEventListener('change', (e) => {
+            const val = e.target.value;
+            if(val) {
+                sbPreviewDob.textContent = val;
+                sbDobBlock.classList.remove('hidden');
+            } else {
+                sbDobBlock.classList.add('hidden');
+            }
+        });
+
         languagesInput.addEventListener('input', (e) => {
             const val = e.target.value.trim();
             if(val) {
@@ -530,21 +664,6 @@
             } else {
                 sbLanguagesBlock.classList.add('hidden');
             }
-        });
-
-        emailInput.addEventListener('input', (e) => {
-            previewEmailSb.textContent = e.target.value;
-            stdEmail.textContent = e.target.value;
-        });
-
-        phoneInput.addEventListener('input', (e) => {
-            let val = e.target.value;
-            if(!val.startsWith('+94 ')) {
-                val = '+94 ' + val.replace(/^\+94\s*/, '');
-                e.target.value = val;
-            }
-            previewPhoneSb.textContent = val;
-            stdPhone.textContent = val;
         });
 
         // Social Links Logic
@@ -556,7 +675,7 @@
             if(linkedin) {
                 sbPreviewLinkedin.textContent = linkedin;
                 sbLinkedinBlock.classList.remove('hidden');
-                stdLinkedin.innerHTML = `🔗 <a href="${linkedin}" target="_blank" class="text-blue-600 underline">LinkedIn</a>`;
+                stdLinkedin.innerHTML = `🔗 <a href="${linkedin}" target="_blank" class="text-slate-700 hover:underline">${linkedin}</a>`;
                 stdLinkedin.classList.remove('hidden');
                 hasSocial = true;
             } else {
@@ -567,7 +686,7 @@
             if(github) {
                 sbPreviewGithub.textContent = github;
                 sbGithubBlock.classList.remove('hidden');
-                stdGithub.innerHTML = `💻 <a href="${github}" target="_blank" class="text-blue-600 underline">GitHub</a>`;
+                stdGithub.innerHTML = `💻 <a href="${github}" target="_blank" class="text-slate-700 hover:underline">${github}</a>`;
                 stdGithub.classList.remove('hidden');
                 hasSocial = true;
             } else {
@@ -588,7 +707,7 @@
         githubInput.addEventListener('input', updateSocialLinks);
 
         // Profile Picture Upload
-        profilePicInput.addEventListener('change', (e) => {
+        profilePicInput.addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (file) {
                 const reader = new FileReader();
@@ -604,7 +723,7 @@
             }
         });
 
-        // Dynamic Education Entries Handler
+        // Dynamic Education Entries
         function updateEducationPreview() {
             const eduItems = document.querySelectorAll('.edu-item');
             previewEducationContainer.innerHTML = '';
@@ -617,14 +736,14 @@
 
                 if(degree || institute || desc) {
                     hasValidEdu = true;
-                    const div = document.createElement('div');
-                    div.className = 'text-xs space-y-0.5 break-all';
-                    div.innerHTML = `
-                        <p class="font-bold text-slate-800">${degree || ''}</p>
+                    const eduDiv = document.createElement('div');
+                    eduDiv.className = 'text-xs text-slate-700 space-y-0.5 pb-2 border-b border-slate-100 last:border-none';
+                    eduDiv.innerHTML = `
+                        <p class="font-bold text-slate-900">${degree || 'Degree / Course'}</p>
                         <p class="font-medium text-slate-600">${institute || ''}</p>
                         <p class="text-slate-500">${desc || ''}</p>
                     `;
-                    previewEducationContainer.appendChild(div);
+                    previewEducationContainer.appendChild(eduDiv);
                 }
             });
 
@@ -635,54 +754,83 @@
             }
         }
 
-        educationContainer.addEventListener('input', updateEducationPreview);
-
         addEduBtn.addEventListener('click', () => {
-            const div = document.createElement('div');
-            div.className = 'edu-item bg-slate-50 p-4 rounded-lg border border-slate-200 relative space-y-3';
-            div.innerHTML = `
-                <button type="button" class="remove-edu absolute top-2 right-2 text-red-500 hover:text-red-700 text-xs font-bold">✕ Remove</button>
+            const newEdu = document.createElement('div');
+            newEdu.className = 'edu-item bg-slate-50/70 p-4 rounded-xl border border-slate-200 relative space-y-3';
+            newEdu.innerHTML = `
+                <button type="button" class="remove-edu absolute top-3 right-3 text-red-500 hover:text-red-700 text-xs font-bold">✕ Remove</button>
                 <div>
-                    <label class="block text-xs font-medium text-slate-600">Degree / Diploma / Course</label>
-                    <input type="text" class="edu-degree mt-1 w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm" value="">
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Degree / Diploma / Course</label>
+                    <input type="text" class="edu-degree w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:outline-none text-sm bg-white" value="">
                 </div>
                 <div>
-                    <label class="block text-xs font-medium text-slate-600">Institute / School</label>
-                    <input type="text" class="edu-institute mt-1 w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm" value="">
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Institute / School</label>
+                    <input type="text" class="edu-institute w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:outline-none text-sm bg-white" value="">
                 </div>
                 <div>
-                    <label class="block text-xs font-medium text-slate-600">Details / Year / Results</label>
-                    <input type="text" class="edu-desc mt-1 w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm" value="">
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Details / Year / Results</label>
+                    <input type="text" class="edu-desc w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:outline-none text-sm bg-white" value="">
                 </div>
             `;
-            educationContainer.appendChild(div);
+            educationContainer.appendChild(newEdu);
 
-            div.querySelector('.remove-edu').addEventListener('click', () => {
-                div.remove();
+            newEdu.querySelector('.remove-edu').addEventListener('click', () => {
+                newEdu.remove();
                 updateEducationPreview();
+            });
+
+            newEdu.querySelectorAll('input').forEach(input => {
+                input.addEventListener('input', updateEducationPreview);
             });
         });
 
-        // Skills & Experience Inputs Control
-        function handleTextAreaBlock(inputEl, blockEl, previewEl) {
-            inputEl.addEventListener('input', (e) => {
-                const val = e.target.value.trim();
-                if(val) {
-                    previewEl.textContent = val;
-                    blockEl.classList.remove('hidden');
-                } else {
-                    blockEl.classList.add('hidden');
-                }
-            });
-        }
+        document.querySelectorAll('.edu-item input').forEach(input => {
+            input.addEventListener('input', updateEducationPreview);
+        });
 
-        handleTextAreaBlock(techSkillsInput, skillsPreviewBlock, previewSkills);
-        handleTextAreaBlock(projectsInput, projectsPreviewBlock, previewProjects);
-        handleTextAreaBlock(trainingInput, trainingPreviewBlock, previewTraining);
-        handleTextAreaBlock(extraInput, extraPreviewBlock, previewExtra);
+        // Skills & Experience Input Listeners
+        techSkillsInput.addEventListener('input', (e) => {
+            const val = e.target.value.trim();
+            if(val) {
+                previewSkills.textContent = val;
+                skillsPreviewBlock.classList.remove('hidden');
+            } else {
+                skillsPreviewBlock.classList.add('hidden');
+            }
+        });
 
-        // References Handler
-        function updateReferencesPreview() {
+        projectsInput.addEventListener('input', (e) => {
+            const val = e.target.value.trim();
+            if(val) {
+                previewProjects.textContent = val;
+                projectsPreviewBlock.classList.remove('hidden');
+            } else {
+                projectsPreviewBlock.classList.add('hidden');
+            }
+        });
+
+        trainingInput.addEventListener('input', (e) => {
+            const val = e.target.value.trim();
+            if(val) {
+                previewTraining.textContent = val;
+                trainingPreviewBlock.classList.remove('hidden');
+            } else {
+                trainingPreviewBlock.classList.add('hidden');
+            }
+        });
+
+        extraInput.addEventListener('input', (e) => {
+            const val = e.target.value.trim();
+            if(val) {
+                previewExtra.textContent = val;
+                extraPreviewBlock.classList.remove('hidden');
+            } else {
+                extraPreviewBlock.classList.add('hidden');
+            }
+        });
+
+        // References Listeners
+        function updateReferences() {
             const name = refNameInput.value.trim();
             const inst = refInstituteInput.value.trim();
             const contact = refContactInput.value.trim();
@@ -697,83 +845,116 @@
             }
         }
 
-        refNameInput.addEventListener('input', updateReferencesPreview);
-        refInstituteInput.addEventListener('input', updateReferencesPreview);
-        refContactInput.addEventListener('input', updateReferencesPreview);
+        refNameInput.addEventListener('input', updateReferences);
+        refInstituteInput.addEventListener('input', updateReferences);
+        refContactInput.addEventListener('input', updateReferences);
 
-        // Template Selector Styles Switcher
+        // Template Layout Switcher
         templateSelector.addEventListener('change', (e) => {
-            const val = e.target.value;
-            
-            if(val === 'greySidebar') {
-                cvPreview.className = "bg-white border border-slate-300 rounded-lg shadow-sm overflow-hidden flex flex-col md:flex-row w-full";
-                previewHeader.className = "w-full md:w-1/3 bg-slate-200 text-slate-900 p-6 flex flex-col items-center text-center space-y-4";
-                sidebarPersonalInfo.classList.remove('hidden');
+            const layout = e.target.value;
+
+            if(layout === 'greySidebar') {
+                cvPreview.className = 'bg-white border border-slate-300 rounded-xl shadow-sm overflow-hidden flex flex-col md:flex-row w-full';
+                previewHeader.className = 'w-full md:w-1/3 bg-slate-200 text-slate-900 p-6 flex flex-col items-center text-center space-y-4';
+                previewContact.className = 'w-full md:w-2/3 p-6 space-y-4 font-sans text-slate-800 bg-white';
                 nameTitleBox.classList.remove('hidden');
                 standardContactBox.classList.add('hidden');
+                sidebarPersonalInfo.classList.remove('hidden');
                 imageUploadWrapper.classList.remove('hidden');
-                imageContainer.classList.remove('hidden');
-                eduHeading.className = "text-xs font-bold uppercase tracking-wider text-blue-600 mb-2";
-                skillsHeading.className = "text-xs font-bold uppercase tracking-wider text-blue-600 mb-1";
-                refHeading.className = "text-xs font-bold uppercase tracking-wider text-blue-600 mb-1";
             } 
-            else if(val === 'topBanner') {
-                cvPreview.className = "bg-white border border-slate-300 rounded-lg shadow-sm overflow-hidden flex flex-col w-full";
-                previewHeader.className = "w-full bg-slate-100 text-slate-900 p-6 flex flex-col items-center text-center space-y-3 border-b";
-                sidebarPersonalInfo.classList.add('hidden');
+            else if(layout === 'topBanner') {
+                cvPreview.className = 'bg-white border border-slate-300 rounded-xl shadow-sm overflow-hidden flex flex-col w-full';
+                previewHeader.className = 'w-full bg-slate-100 text-slate-900 p-6 flex flex-col items-center text-center space-y-3 border-b';
+                previewContact.className = 'w-full p-6 space-y-4 font-sans text-slate-800 bg-white';
                 nameTitleBox.classList.remove('hidden');
                 standardContactBox.classList.remove('hidden');
-                imageUploadWrapper.classList.remove('hidden');
-                imageContainer.classList.remove('hidden');
-                eduHeading.className = "text-xs font-bold uppercase tracking-wider text-emerald-600 mb-2";
-                skillsHeading.className = "text-xs font-bold uppercase tracking-wider text-emerald-600 mb-1";
-                refHeading.className = "text-xs font-bold uppercase tracking-wider text-emerald-600 mb-1";
-            } 
-            else if(val === 'ats') {
-                cvPreview.className = "bg-white border border-slate-300 rounded-lg shadow-sm overflow-hidden flex flex-col w-full p-6";
-                previewHeader.className = "hidden";
                 sidebarPersonalInfo.classList.add('hidden');
+                imageUploadWrapper.classList.remove('hidden');
+            } 
+            else if(layout === 'ats') {
+                cvPreview.className = 'bg-white border border-slate-300 rounded-xl shadow-sm overflow-hidden flex flex-col w-full';
+                previewHeader.className = 'hidden';
+                previewContact.className = 'w-full p-8 space-y-4 font-sans text-slate-800 bg-white';
                 nameTitleBox.classList.remove('hidden');
                 standardContactBox.classList.remove('hidden');
+                sidebarPersonalInfo.classList.add('hidden');
                 imageUploadWrapper.classList.add('hidden');
-                imageContainer.classList.add('hidden');
-                eduHeading.className = "text-xs font-bold uppercase tracking-wider text-slate-900 mb-2 border-b pb-1";
-                skillsHeading.className = "text-xs font-bold uppercase tracking-wider text-slate-900 mb-1 border-b pb-1";
-                refHeading.className = "text-xs font-bold uppercase tracking-wider text-slate-900 mb-1 border-b pb-1";
             }
         });
 
-        // PDF Download Handler (Updated html2canvas config for mobile rendering)
+        // PDF Download & Thank You / Review Modal Trigger Logic
         downloadBtn.addEventListener('click', () => {
             const nameVal = fullNameInput.value.trim();
             const emailVal = emailInput.value.trim();
             const phoneVal = phoneInput.value.trim();
 
-            if(!nameVal || !emailVal || !phoneVal || phoneVal === '+94') {
+            if(!nameVal || !emailVal || !phoneVal || phoneVal === '+94 ') {
                 errorMsgBox.classList.remove('hidden');
                 return;
-            } else {
-                errorMsgBox.classList.add('hidden');
             }
+            errorMsgBox.classList.add('hidden');
 
             const element = document.getElementById('cvPreview');
-            
             const opt = {
                 margin:       0.2,
                 filename:     (nameVal ? nameVal.replace(/\s+/g, '_') : 'My_CV') + '_CV.pdf',
                 image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { 
-                    scale: 1, 
-                    useCORS: true, 
-                    logging: false, 
-                    letterRendering: true,
-                    windowWidth: document.documentElement.offsetWidth
-                },
-                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+                html2canvas:  { scale: 2, useCORS: true },
+                jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
             };
 
-            html2pdf().from(element).set(opt).save();
+            // Trigger PDF Download
+            html2pdf().from(element).set(opt).save().then(() => {
+                // Show Thank You & Review Modal after successful download
+                thankYouModal.classList.remove('hidden');
+            });
         });
+        function triggerDownloadAndSave() {
+    // 1. Form Validation
+    const nameVal = document.getElementById('fullName')?.value || '';
+    const emailVal = document.getElementById('email')?.value || '';
+    const phoneVal = document.getElementById('phone')?.value || '';
+    const errorMsgBox = document.getElementById('errorMsgBox');
+
+    if (!nameVal || !emailVal || !phoneVal || phoneVal === '+94 ') {
+        if(errorMsgBox) errorMsgBox.classList.remove('hidden');
+        return;
+    }
+    if(errorMsgBox) errorMsgBox.classList.add('hidden');
+
+    // 2. Collect Data for Admin & LocalStorage
+    const indexNo = document.getElementById('indexNo')?.value || '';
+    const courseStream = document.getElementById('courseStream')?.value || '';
+    const summary = document.getElementById('jobTitleDesc')?.value || '';
+    
+    const cvData = {
+        fullName: nameVal,
+        email: emailVal,
+        phoneNo: phoneVal,
+        indexNo: indexNo,
+        courseStream: courseStream,
+        summary: summary
+    };
+
+    // Admin dashboard එකේ loop එකට අසුවෙන විදිහට cv_data_ + email යටතේ save කිරීම
+    const storageKey = 'cv_data_' + (emailVal || 'user_' + Date.now());
+    localStorage.setItem(storageKey, JSON.stringify(cvData));
+
+    // 3. Trigger PDF Generation & Download
+    const element = document.getElementById('cvPreview');
+    const opt = {
+        margin: 0.2,
+        filename: (nameVal ? nameVal.replace(/\s+/g, '_') : 'My_CV') + '_CV.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true },
+        jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+    };
+
+    html2pdf().from(element).set(opt).save().then(() => {
+        const thankYouModal = document.getElementById('thankYouModal');
+        if(thankYouModal) thankYouModal.classList.remove('hidden');
+    });
+}
     </script>
 </body>
 </html>

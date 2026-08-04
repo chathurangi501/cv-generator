@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - CV Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 min-h-screen flex items-center justify-center p-4">
+
+    <div class="max-w-md w-full bg-white/15 backdrop-blur-md border border-white/20 rounded-2xl p-8 shadow-2xl text-white space-y-6 relative">
+        
+        <!-- Home Page Button (Top Right) -->
+        <a href="home.html" class="absolute top-6 right-6 bg-white/10 hover:bg-white/20 text-slate-200 hover:text-white px-3 py-1.5 rounded-xl text-xs font-semibold transition border border-white/20 flex items-center gap-1.5 shadow-sm">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </a>
+
+        <div class="text-center space-y-2 pt-2">
+            <div class="w-14 h-14 mx-auto bg-blue-600 rounded-xl flex items-center justify-center shadow-lg">
+                <i class="fa-solid fa-user-plus text-2xl text-white"></i>
+            </div>
+            <h1 class="text-2xl font-bold">Create Account</h1>
+            <p class="text-slate-300 text-xs">Register to start building your professional CV</p>
+        </div>
+
+        <div id="alertBox" class="hidden p-3 text-xs rounded-lg bg-red-500/20 border border-red-500 text-red-200 text-center"></div>
+
+        <form id="registerForm" class="space-y-4">
+            <div>
+                <label class="block text-xs font-medium text-slate-300 mb-1">Full Name</label>
+                <input type="text" id="regName" required class="w-full p-3 bg-white/5 border border-white/20 rounded-xl text-sm focus:outline-none focus:border-blue-500">
+            </div>
+            <div>
+                <label class="block text-xs font-medium text-slate-300 mb-1">Email Address</label>
+                <input type="email" id="regEmail" required class="w-full p-3 bg-white/5 border border-white/20 rounded-xl text-sm focus:outline-none focus:border-blue-500">
+            </div>
+            <div>
+                <label class="block text-xs font-medium text-slate-300 mb-1">Password</label>
+                <input type="password" id="regPassword" required class="w-full p-3 bg-white/5 border border-white/20 rounded-xl text-sm focus:outline-none focus:border-blue-500">
+            </div>
+            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl shadow-lg transition duration-300 text-sm cursor-pointer">
+                Register
+            </button>
+        </form>
+
+        <p class="text-center text-xs text-slate-300">
+            Already have an account? <a href="login.html" class="text-blue-400 font-semibold hover:underline">Login here</a>
+        </p>
+    </div>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('regName').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const password = document.getElementById('regPassword').value.trim();
+            const alertBox = document.getElementById('alertBox');
+
+            let users = JSON.parse(localStorage.getItem('cv_users')) || [];
+            
+            const existingUser = users.find(u => u.email === email);
+            if(existingUser) {
+                alertBox.textContent = "This email is already registered!";
+                alertBox.classList.remove('hidden');
+                return;
+            }
+
+            users.push({ name, email, password });
+            localStorage.setItem('cv_users', JSON.stringify(users));
+            
+            alert("Registration Successful! Please login.");
+            window.location.href = 'login.html';
+        });
+    </script>
+</body>
+</html>

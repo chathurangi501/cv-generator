@@ -57,7 +57,7 @@
             const basePath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
 
             // 1. Admin check (Hardcoded admin credentials)
-            if (email === "admin@gmail.com" && password === "admin123") {
+            if (email === "admin@gmail.com" && password === "Chathu@2003") {
                 localStorage.setItem("isAdminLoggedIn", "true");
                 window.location.href = window.location.origin + basePath + 'admin.html';
                 return;
@@ -72,7 +72,7 @@
                 // Redirect to home.html instead of index.html after successful login
                 window.location.href = window.location.origin + basePath + 'home.html';
             } else {
-                alertBox.textContent = "Invalid email or password! (Admin: admin@gmail.com / admin123)";
+                alertBox.textContent = "Invalid email or password! (Admin: admin@gmail.com / Chathu@2003)";
                 alertBox.classList.remove('hidden');
             }
         });

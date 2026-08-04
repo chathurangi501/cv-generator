@@ -12,12 +12,13 @@
 </head>
 <body class="bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 min-h-screen flex items-center justify-center p-4">
 
-    <div class="max-w-md w-full bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8 shadow-2xl text-white space-y-6">
+    <div class="max-w-md w-full bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8 shadow-2xl text-white space-y-6 relative">
+       <!-- Home Page Button (Top Right) -->
        <a href="home.html" class="absolute top-6 right-6 bg-white/10 hover:bg-white/20 text-slate-200 hover:text-white px-3 py-1.5 rounded-xl text-xs font-semibold transition border border-white/20 flex items-center gap-1.5 shadow-sm">
             <i class="fa-solid fa-house"></i>
             <span>Home</span>
-        </a>
-        <div class="text-center space-y-2">
+       </a>
+       <div class="text-center space-y-2 pt-2">
             <div class="w-14 h-14 mx-auto bg-blue-600 rounded-xl flex items-center justify-center shadow-lg">
                 <i class="fa-solid fa-right-to-bracket text-2xl text-white"></i>
             </div>
@@ -53,25 +54,23 @@
             const password = document.getElementById('loginPassword').value.trim();
             const alertBox = document.getElementById('alertBox');
 
+            const basePath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
+
             // 1. Admin check (Hardcoded admin credentials)
             if (email === "admin@gmail.com" && password === "admin123") {
                 localStorage.setItem("isAdminLoggedIn", "true");
-                const basePath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
                 window.location.href = window.location.origin + basePath + 'admin.html';
                 return;
             }
 
-            // 2. Regular Registered Users Check (LocalStorage eke save wela thiyena usersla balanawa)
+            // 2. Regular Registered Users Check
             let users = JSON.parse(localStorage.getItem('cv_users')) || [];
             const user = users.find(u => u.email === email && u.password === password);
 
             if (user) {
-                // Logged user data save karanawa
                 localStorage.setItem('cv_logged_user', JSON.stringify(user));
-                
-                // Absolute path widiyata index.html ekata redirect karanawa
-                const basePath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
-                window.location.href = window.location.origin + basePath + 'index.html';
+                // Redirect to home.html instead of index.html after successful login
+                window.location.href = window.location.origin + basePath + 'home.html';
             } else {
                 alertBox.textContent = "Invalid email or password! (Admin: admin@gmail.com / admin123)";
                 alertBox.classList.remove('hidden');
